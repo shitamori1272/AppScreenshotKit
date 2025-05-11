@@ -104,7 +104,11 @@ struct SampleScreenshotGenerator: AppScreenshot {
                     Text("Screen Content")
                         .font(.title)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+#if canImport(UIKit)
                         .background(Color(uiColor: .systemBackground))
+#elseif canImport(AppKit)
+                        .background(Color(NSColor.windowBackgroundColor))
+#endif
                 }
                 .frame(width: 1000, height: 1500)
                 .rotationEffect(.degrees(50))

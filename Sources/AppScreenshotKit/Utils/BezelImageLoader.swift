@@ -6,84 +6,27 @@
 //
 
 import Foundation
-import System
 
-// 継承を許可するためにopenクラスに変更
 struct BezelImageLoader {
+
     func imageData(_ device: AppScreenshotDevice, resourceBaseURL: URL) throws -> Data {
-        // iPadとiPhoneで画像名の作成方法が異なる
-        let imageFileName = createImageFileName(device)
-
-        // まずは直接パスで検索
-        let directFilePath = resourceBaseURL.appending(component: imageFileName)
-        if FileManager.default.fileExists(atPath: directFilePath.path) {
-            return try Data(contentsOf: directFilePath)
+        let imageFileName = imageFileName(device)
+        guard let filePaths = FileManager.default.subpaths(atPath: resourceBaseURL.path()),
+              let imageFilePath = filePaths.first(where: { $0.hasSuffix(imageFileName) }) else {
+            throw AppScreenshotKitError(message: "No image file found: \(imageFileName) in \(resourceBaseURL.path())")
         }
 
-        // iPhoneの場合はサブディレクトリ内にある
-        if device.model.category == .iPhone {
-            let iPhoneFilePath =
-                resourceBaseURL
-                .appending(component: device.model.rawValue)
-                .appending(component: imageFileName)
-            if FileManager.default.fileExists(atPath: iPhoneFilePath.path) {
-                return try Data(contentsOf: iPhoneFilePath)
-            }
-        }
-
-        // 再帰的に検索
-        if let foundURL = findFile(named: imageFileName, in: resourceBaseURL) {
-            return try Data(contentsOf: foundURL)
-        }
-
-        if let foundURL = findFile(
-            named: imageFileName.replacingOccurrences(of: ".png", with: ""),
-            in: resourceBaseURL
-        ) {
-            return try Data(contentsOf: foundURL)
-        }
-
-        throw NSError(
-            domain: "BezelImageLoaderError",
-            code: 404,
-            userInfo: [NSLocalizedDescriptionKey: "Bezel image not found: \(imageFileName)"]
-        )
+        return try Data(contentsOf: resourceBaseURL.appendingPathComponent(imageFilePath))
     }
 
-    private func createImageFileName(_ device: AppScreenshotDevice) -> String {
-        "\(device.model.rawValue) - \(device.color.rawValue) - \(device.orientation.rawValue).png"
-    }
-
-    // 再帰的にファイルを検索する関数
-    private func findFile(named fileName: String, in directory: URL) -> URL? {
-        let fileManager = FileManager.default
-
-        guard
-            let contents = try? fileManager.contentsOfDirectory(
-                at: directory,
-                includingPropertiesForKeys: [.isDirectoryKey],
-                options: [.skipsHiddenFiles]
-            )
-        else {
-            return nil
+    private func imageFileName(_ device: AppScreenshotDevice) -> String {
+        let deviceName = switch device.model {
+        case .iPadPro11M4: "iPad Pro 11(M4)"
+        case .iPadPro13M4: "iPad Pro 13 (M4)"
+        case .iPadAir11M2: "iPad Air 11 (M2)"
+        case .iPadAir13M2: "iPad Air 13 (M2)"
+        default: device.model.rawValue
         }
-
-        // 現在のディレクトリで検索
-        if let file = contents.first(where: { $0.lastPathComponent == fileName }) {
-            return file
-        }
-
-        // サブディレクトリを再帰的に検索
-        for url in contents {
-            guard (try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true else {
-                continue
-            }
-
-            if let found = findFile(named: fileName, in: url) {
-                return found
-            }
-        }
-
-        return nil
+        return "\(deviceName) - \(device.color.rawValue) - \(device.orientation.rawValue).png"
     }
 }

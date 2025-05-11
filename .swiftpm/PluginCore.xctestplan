@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "20DB8BB3-4F80-4B32-9CA8-FF70DD2A2A7B",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:",
+      "identifier" : "PluginCore",
+      "name" : "PluginCore"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "PluginCoreTests",
+        "name" : "PluginCoreTests"
+      }
+    }
+  ],
+  "version" : 1
+}

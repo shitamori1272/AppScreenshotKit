@@ -1,5 +1,5 @@
 //
-//  URL+.swift
+//  AppScreenshotKitUtils.swift
 //  FocusForFun
 //
 //  Created by Shuhei Shitamori on 2025/05/07.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension URL {
+public enum AppScreenshotKitUtils {
     /**
      * Finds and returns the URL of the directory containing the Package.swift file by traversing up the directory tree.
      *
@@ -43,19 +43,38 @@ extension URL {
      * - Returns: The URL of the directory containing the Xcode project.
      * - Throws: URLError if no Xcode project is found in the directory tree.
      */
-    public static func projectRootURL(currentFilePath: String = #filePath) throws -> URL {
+    public static func projectRootURL(projectName: String = "", currentFilePath: String = #filePath) throws -> URL {
         let currentFileURL = URL(filePath: currentFilePath)
         var currentDirectoryURL = currentFileURL.deletingLastPathComponent()
         while currentDirectoryURL != currentDirectoryURL.deletingLastPathComponent() {
             let files = try FileManager.default.contentsOfDirectory(
                 at: currentDirectoryURL, includingPropertiesForKeys: nil)
-            if files.contains(where: { $0.pathExtension == "xcodeproj" }) {
+            if files
+                .contains(
+                    where: {
+                        $0.pathExtension == "xcodeproj" &&
+                        $0.deletingPathExtension().lastPathComponent == projectName
+                    }
+                ) {
                 return currentDirectoryURL
             }
             currentDirectoryURL = currentDirectoryURL.deletingLastPathComponent()
         }
 
         throw URLError(message: "Xcode project not found in the directory tree.")
+    }
+
+    public static func workspaceRootURL(workspaceName: String = "", currentFilePath: String = #filePath) throws -> URL {
+        let currentFileURL = URL(filePath: currentFilePath)
+        var currentDirectoryURL = currentFileURL.deletingLastPathComponent()
+        while currentDirectoryURL != currentDirectoryURL.deletingLastPathComponent() {
+            if currentDirectoryURL.lastPathComponent == workspaceName + ".xcworkspace" {
+                return currentDirectoryURL
+            }
+            currentDirectoryURL = currentDirectoryURL.deletingLastPathComponent()
+        }
+
+        throw URLError(message: "Xcode workspace not found in the directory tree.")
     }
 }
 

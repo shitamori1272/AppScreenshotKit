@@ -58,7 +58,11 @@ struct ScreenContentView<Content: View>: View {
                 }
         }
         .frame(width: model.screenSize.width, height: model.screenSize.height)
+        #if canImport(UIKit)
         .background(Color(uiColor: .systemBackground))
+        #elseif canImport(AppKit)
+        .background(Color(NSColor.windowBackgroundColor))
+        #endif
         .clipShape(
             RoundedRectangle(
                 cornerRadius: model.bezelRadius

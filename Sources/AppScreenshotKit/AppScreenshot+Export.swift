@@ -25,7 +25,7 @@ extension AppScreenshot {
      * - Throws: Errors that might occur during the rendering or image conversion process.
      */
     @MainActor
-    static func export(resourceBaseURL: URL? = nil) throws -> [AppScreenshotOutput] {
+    package static func export(resourceBaseURL: URL? = nil) throws -> [AppScreenshotOutput] {
         return try configuration.environments().map { environment in
             let renderingStrategy: RenderingStrategy
             if let resourceBaseURL {

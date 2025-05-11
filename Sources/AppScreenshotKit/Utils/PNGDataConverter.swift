@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-
 @MainActor
 struct PNGDataConverter {
     /// Convert a SwiftUI view to PNG Data
     func convert<Content: View>(_ content: Content, rect: CGRect? = nil, scale: CGFloat = 1) throws -> Data {
+#if canImport(UIKit)
         let controller = UIHostingController(rootView: content)
         if #available(iOS 16.4, *) {
             controller.safeAreaRegions = []
@@ -38,5 +38,21 @@ struct PNGDataConverter {
             ctx.cgContext.translateBy(x: -rect.origin.x, y: -rect.origin.y)
             view.layer.render(in: ctx.cgContext)
         }
+#elseif canImport(AppKit)
+        let view = NSHostingView(rootView: content)
+        let targetSize = view.intrinsicContentSize
+        view.frame = NSRect(origin: .zero, size: targetSize)
+
+        guard let bitmapRep = view.bitmapImageRepForCachingDisplay(in: view.bounds) else {
+            return Data()
+        }
+
+        view.cacheDisplay(in: view.bounds, to: bitmapRep)
+        guard let data = bitmapRep.representation(using: .png, properties: [:]) else {
+            return Data()
+        }
+
+        return data
+#endif
     }
 }

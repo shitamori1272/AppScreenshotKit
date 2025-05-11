@@ -49,49 +49,6 @@ struct VirtualBezelView<Content: View>: View {
     }
 }
 
-/// UIViewControllerRepresentableプロトコルを準拠するViewControllerを作成する
-struct HostingViewWrap<Content: View>: UIViewControllerRepresentable {
-
-    let content: Content
-
-    init(@ViewBuilder content: () -> Content) {
-        self.content = content()
-    }
-
-    // UIViewControllerを作成するメソッド
-    func makeUIViewController(context: Context) -> UIViewController {
-        // 指定のUIViewControllerを作成する
-        let myViewController = UIHostingController(
-            rootView: content
-        )
-
-        // Use safeAreaInsets from environment's deviceModel if available
-        let deviceModel = context.environment.deviceModel
-        let insets = deviceModel.safeAreaInsets
-        myViewController.additionalSafeAreaInsets = UIEdgeInsets(
-            top: insets.top,
-            left: insets.leading,
-            bottom: insets.bottom,
-            right: insets.trailing
-        )
-
-        return myViewController
-    }
-
-    // UIViewControllerを更新するメソッド
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        // Update safe area insets if device model changes
-        let deviceModel = context.environment.deviceModel
-        let insets = deviceModel.safeAreaInsets
-        uiViewController.additionalSafeAreaInsets = UIEdgeInsets(
-            top: insets.top,
-            left: insets.leading,
-            bottom: insets.bottom,
-            right: insets.trailing
-        )
-    }
-}
-
 #Preview {
     VirtualBezelView {
         NavigationStack {
@@ -102,7 +59,6 @@ struct HostingViewWrap<Content: View>: UIViewControllerRepresentable {
                     .background(Color.red)
             }
             .navigationTitle("Hellowold")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
     .environment(

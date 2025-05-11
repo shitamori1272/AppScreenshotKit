@@ -1,19 +1,18 @@
 import Foundation
 import SwiftUI
-//#if canImport(XCTest) && !XCODE_BUILDING_FOR_PREVIEWS
-//import XCTest
-//#endif
+import AppScreenshotKit
+#if canImport(XCTest)
+import XCTest
+#endif
 
 public class AppScreenshotExporter {
     let option: ExportOption
-    var appleDesignResourceBezelURL: URL?
+    var appleDesignResourceBezelURL: URL = Bundle.module.bundleURL.appending(path: "AppleDesignResource/Bezels")
 
     public init(
-        option: ExportOption,
-        appleDesignResourceBezelURL: URL? = nil
+        option: ExportOption
     ) {
         self.option = option
-        self.appleDesignResourceBezelURL = appleDesignResourceBezelURL
     }
 
     public func setAppleDesignResourceURL(_ url: URL) {
@@ -42,22 +41,22 @@ public class AppScreenshotExporter {
                 let fileURL = parent.appendingPathComponent(fileName + ".png")
                 try FileManager.default.createDirectory(at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: true)
                 try output.pngData.write(to: fileURL)
-//#if canImport(XCTest) && !XCODE_BUILDING_FOR_PREVIEWS
-//            case let .attachment(testCase, fileNameRule):
-//                let fileName: String
-//                if let fileNameRule {
-//                    fileName = fileNameRule(environment)
-//                } else {
-//                    var defaultFileName = "\(environment.locale.identifier)-\(environment.device.model.rawValue)-\(String(describing: Content.self))"
-//                    if environment.screenshotCount > 1 {
-//                        defaultFileName += "-\(output.count)"
-//                    }
-//                    fileName = defaultFileName
-//                }
-//                let attachment = XCTAttachment(uniformTypeIdentifier: "public.png", name: fileName, payload: output.pngData)
-//                attachment.lifetime = .keepAlways
-//                testCase.add(attachment)
-//#endif
+#if canImport(XCTest)
+            case let .attachment(testCase, fileNameRule):
+                let fileName: String
+                if let fileNameRule {
+                    fileName = fileNameRule(environment)
+                } else {
+                    var defaultFileName = "\(environment.locale.identifier)-\(environment.device.model.rawValue)-\(String(describing: Content.self))"
+                    if environment.screenshotCount > 1 {
+                        defaultFileName += "-\(output.count)"
+                    }
+                    fileName = defaultFileName
+                }
+                let attachment = XCTAttachment(uniformTypeIdentifier: "public.png", name: fileName, payload: output.pngData)
+                attachment.lifetime = .keepAlways
+                testCase.add(attachment)
+#endif
             case .plugin:
                 break
             }
@@ -70,8 +69,8 @@ extension AppScreenshotExporter {
     public enum ExportOption {
         case file(_ parentDirectoryURL: URL, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil)
         case plugin
-//#if canImport(XCTest) && !XCODE_BUILDING_FOR_PREVIEWS
-//        case attachment(xcTestCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil)
-//#endif
+#if canImport(XCTest)
+        case attachment(xcTestCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil)
+#endif
     }
 }
