@@ -14,6 +14,7 @@ struct ScreenShotGeneratorTests {
         .deletingLastPathComponent()
         .deletingLastPathComponent()
 
+#if canImport(UIKit)
     @Test(
         arguments: [
 //            AppScreenshotIPad.self as any AppScreenshot.Type,
@@ -114,8 +115,10 @@ struct ScreenShotGeneratorTests {
                 )
         }
     }
+#endif
 }
 
+#if canImport(UIKit)
 struct CompareResult {
     let environment: AppScreenshotEnvironment
     let virtual: UIImage
@@ -123,3 +126,4 @@ struct CompareResult {
     let diff: UIImage
     let averageDiff: Int
 }
+#endif

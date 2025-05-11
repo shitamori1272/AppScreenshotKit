@@ -57,8 +57,6 @@ public class AppScreenshotExporter {
                 attachment.lifetime = .keepAlways
                 testCase.add(attachment)
 #endif
-            case .plugin:
-                break
             }
         }
         return outputs
@@ -68,7 +66,6 @@ public class AppScreenshotExporter {
 extension AppScreenshotExporter {
     public enum ExportOption {
         case file(_ parentDirectoryURL: URL, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil)
-        case plugin
 #if canImport(XCTest)
         case attachment(xcTestCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil)
 #endif
