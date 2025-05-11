@@ -18,8 +18,8 @@ let package = Package(
             targets: ["AppScreenshotKitTestTools"]
         ),
         .executable(
-            name: "PluginCore",
-            targets: ["PluginCore"]
+            name: "AppScreenshotKitCLI",
+            targets: ["AppScreenshotKitCLI"]
         )
     ],
     dependencies: [],
@@ -37,7 +37,7 @@ let package = Package(
             ]
         ),
         .executableTarget(
-            name: "PluginCore"
+            name: "AppScreenshotKitCLI"
         ),
         .plugin(
             name: "RegisterBezelsCommand",
@@ -52,9 +52,8 @@ let package = Package(
             dependencies: ["AppScreenshotKitTestTools"]
         ),
         .testTarget(
-            name: "PluginCoreTests",
-            dependencies: ["PluginCore"],
-            resources: [.copy("Resources/document.json")]
+            name: "AppScreenshotKitCLITests",
+            dependencies: ["AppScreenshotKitCLI"]
         )
     ]
 )
