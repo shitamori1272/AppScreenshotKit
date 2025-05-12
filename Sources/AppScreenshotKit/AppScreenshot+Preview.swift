@@ -40,37 +40,6 @@ extension AppScreenshot {
             }
         }
     }
-
-    /**
-     * Creates a preview of the screenshot within a device bezel for SwiftUI previews.
-     *
-     * This method shows how the screenshot will appear within the physical device frame,
-     * providing a more realistic representation of the final App Store screenshot.
-     *
-     * - Returns: A SwiftUI view displaying the screenshot within a device bezel.
-     */
-    @MainActor
-    public static func bezelPreview(
-        environmentPredicate: ((AppScreenshotEnvironment) -> Bool)? = nil
-    ) -> some View {
-        var environments = configuration.environments()
-        if let predicate = environmentPredicate {
-            environments = environments.filter(predicate)
-        }
-
-        return ScaleView {
-            VStack {
-                ForEach(environments, id: \.self) { environment in
-                    screenshotView(environment: environment)
-                        .overlay {
-                            if configuration.count > 1 {
-                                VerticalLinesView(divisionCount: configuration.count)
-                            }
-                        }
-                }
-            }
-        }
-    }
 }
 
 /// Example implementation of a screenshot generator

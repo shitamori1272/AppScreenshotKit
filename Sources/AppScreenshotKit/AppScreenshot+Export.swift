@@ -44,7 +44,7 @@ extension AppScreenshot {
 
             let outputs: [AppScreenshotOutput] = try Array(0..<environment.screenshotCount)
                 .compactMap { index in
-                    guard let rect = environment.rect(for: index) else { return nil }
+                    let rect = environment.rect(for: index)
                     // Convert the view to PNG data
                     let pngData = try PNGDataConverter().convert(content, rect: rect)
                     return AppScreenshotOutput(

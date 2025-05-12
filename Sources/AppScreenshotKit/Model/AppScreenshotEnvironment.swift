@@ -38,9 +38,9 @@ extension AppScreenshotEnvironment {
      * - Parameter screenshotIndex: The index of the screenshot in the series.
      * - Returns: A CGRect representing the position and size of the screenshot, or nil if the index is out of bounds.
      */
-    func rect(for screenshotIndex: Int) -> CGRect? {
-        guard screenshotIndex < screenshotCount else { return nil }
-        guard screenshotIndex >= 0 else { return nil }
+    public func rect(for screenshotIndex: Int) -> CGRect {
+        guard screenshotIndex < screenshotCount else { return .zero }
+        guard screenshotIndex >= 0 else { return .zero }
 
         let origin = CGPoint(x: CGFloat(screenshotIndex) * screenshotSize.width, y: 0)
         return CGRect(origin: origin, size: screenshotSize)
