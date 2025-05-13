@@ -12,10 +12,9 @@ struct BezelImageLoader {
     func imageData(_ device: AppScreenshotDevice, resourceBaseURL: URL) throws -> Data {
         let imageFileNameCandidates = imageFileNameCandidates(device)
         guard let filePaths = FileManager.default.subpaths(atPath: resourceBaseURL.path()),
-            let imageFilePath = filePaths.first(where: { path in
-                imageFileNameCandidates.contains(where: { name in path.hasSuffix(name) })
-            })
-        else {
+              let imageFilePath = filePaths.first(where: { path in
+                  imageFileNameCandidates.contains(where: { name in path.hasSuffix(name) })
+              }) else {
             throw AppScreenshotKitError(
                 message: "No image file found: \(imageFileNameCandidates[0]) in \(resourceBaseURL.path())")
         }
