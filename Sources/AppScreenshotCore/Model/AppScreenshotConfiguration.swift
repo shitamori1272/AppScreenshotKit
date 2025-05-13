@@ -13,7 +13,7 @@ public struct AppScreenshotConfiguration: Sendable {
     public fileprivate(set) var locales: [Locale] = [.current]
 
     /// Number of screenshots to generate in a series (for sequential screenshots)
-    public fileprivate(set) var count: Int = 1
+    public fileprivate(set) var tileCount: Int = 1
 
     /**
      * Initializes a new configuration with the specified screenshot sizes.
@@ -45,9 +45,9 @@ public struct AppScreenshotConfiguration: Sendable {
         return sizes.combined(locales).map { size, locale in
             AppScreenshotEnvironment(
                 screenshotSize: size.size.size,
-                screenshotCount: count,
+                tileCount: tileCount,
                 canvasSize: CGSize(
-                    width: size.size.size.width * Double(count),
+                    width: size.size.size.width * Double(tileCount),
                     height: size.size.size.height
                 ),
                 locale: locale,
@@ -94,10 +94,28 @@ extension AppScreenshotConfiguration {
      * - Parameter count: The number of screenshots to generate in the series.
      * - Returns: A new configuration with the updated count setting.
      */
-    public func count(_ count: Int) -> Self {
+    public func tileCount(_ count: Int) -> Self {
         var newConfiguration = self
-        newConfiguration.count = count
+        newConfiguration.tileCount = count
         return newConfiguration
+    }
+}
+
+/// Configuration for Macro
+extension AppScreenshotConfiguration {
+    public enum Option {
+        case locale([Locale])
+        case tiles(Int)
+    }
+
+    public init(_ size: AppScreenshotSize..., options: Option...) {
+        self.sizes = size
+        options.forEach {
+            switch $0 {
+            case .tiles(let count): self.tileCount = count
+            case .locale(let locales): self.locales = locales
+            }
+        }
     }
 }
 

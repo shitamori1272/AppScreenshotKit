@@ -16,7 +16,7 @@ public struct AppScreenshotEnvironment: Equatable, Hashable, Sendable {
     public let screenshotSize: CGSize
 
     /// The number of screenshots in the series
-    public let screenshotCount: Int
+    public let tileCount: Int
 
     /// The total canvas size for the screenshot generation
     public let canvasSize: CGSize
@@ -38,11 +38,11 @@ extension AppScreenshotEnvironment {
      * - Parameter screenshotIndex: The index of the screenshot in the series.
      * - Returns: A CGRect representing the position and size of the screenshot, or nil if the index is out of bounds.
      */
-    public func rect(for screenshotIndex: Int) -> CGRect {
-        guard screenshotIndex < screenshotCount else { return .zero }
-        guard screenshotIndex >= 0 else { return .zero }
+    public func rect(for tileIndex: Int) -> CGRect {
+        guard tileIndex < tileCount else { return .zero }
+        guard tileIndex >= 0 else { return .zero }
 
-        let origin = CGPoint(x: CGFloat(screenshotIndex) * screenshotSize.width, y: 0)
+        let origin = CGPoint(x: CGFloat(tileIndex) * screenshotSize.width, y: 0)
         return CGRect(origin: origin, size: screenshotSize)
     }
 }

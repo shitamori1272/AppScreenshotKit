@@ -24,6 +24,20 @@ struct StatusBarShownEnvironmentKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
 
+struct AppScreenshotEnvironmentEnvironmentKey: EnvironmentKey {
+    static let defaultValue: AppScreenshotEnvironment = AppScreenshotEnvironment(
+        screenshotSize: .zero,
+        tileCount: 1,
+        canvasSize: .zero,
+        locale: .current,
+        device: AppScreenshotDevice(
+            orientation: .portrait,
+            color: .black,
+            model: .iPhone16Pro
+        )
+    )
+}
+
 extension EnvironmentValues {
     var deviceModel: DeviceViewModel {
         get { self[DeviceModelEnvironmentKey.self] }
@@ -38,5 +52,10 @@ extension EnvironmentValues {
     var statusBarShown: Bool {
         get { self[StatusBarShownEnvironmentKey.self] }
         set { self[StatusBarShownEnvironmentKey.self] = newValue }
+    }
+
+    public var appScreenshotEnvironment: AppScreenshotEnvironment {
+        get { self[AppScreenshotEnvironmentEnvironmentKey.self] }
+        set { self[AppScreenshotEnvironmentEnvironmentKey.self] = newValue }
     }
 }

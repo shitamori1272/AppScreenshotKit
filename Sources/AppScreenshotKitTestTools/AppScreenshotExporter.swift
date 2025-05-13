@@ -33,7 +33,7 @@ public class AppScreenshotExporter {
                     fileName = fileNameRule(environment)
                 } else {
                     var defaultFileName = "\(environment.locale.identifier)/\(environment.device.model.rawValue)/\(String(describing: Content.self))"
-                    if environment.screenshotCount > 1 {
+                    if environment.tileCount > 1 {
                         defaultFileName += "-\(output.count)"
                     }
                     fileName = defaultFileName
@@ -48,7 +48,7 @@ public class AppScreenshotExporter {
                     fileName = fileNameRule(environment)
                 } else {
                     var defaultFileName = "\(environment.locale.identifier)-\(environment.device.model.rawValue)-\(String(describing: Content.self))"
-                    if environment.screenshotCount > 1 {
+                    if environment.tileCount > 1 {
                         defaultFileName += "-\(output.count)"
                     }
                     fileName = defaultFileName

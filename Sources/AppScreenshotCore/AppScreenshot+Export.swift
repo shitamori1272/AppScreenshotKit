@@ -42,7 +42,7 @@ extension AppScreenshot {
             let content = screenshotView(environment: environment)
                 .environment(\.renderingStrategy, renderingStrategy)
 
-            let outputs: [AppScreenshotOutput] = try Array(0..<environment.screenshotCount)
+            let outputs: [AppScreenshotOutput] = try Array(0..<environment.tileCount)
                 .compactMap { index in
                     let rect = environment.rect(for: index)
                     // Convert the view to PNG data

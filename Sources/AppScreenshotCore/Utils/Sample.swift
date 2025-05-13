@@ -115,7 +115,7 @@ package enum AppScreenshoSamples {
 
     package enum AppScreenshotKitREADME: AppScreenshot {
 
-        package static let configuration = AppScreenshotConfiguration(.iPhone69Inch()).count(4)
+        package static let configuration = AppScreenshotConfiguration(.iPhone69Inch()).tileCount(4)
 
         package static func body(environment: AppScreenshotEnvironment) -> some View {
             ZStack {
