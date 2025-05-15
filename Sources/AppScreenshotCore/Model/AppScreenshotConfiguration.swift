@@ -20,8 +20,14 @@ public struct AppScreenshotConfiguration: Sendable {
      *
      * - Parameter size: One or more AppScreenshotSize values representing the devices and sizes to use.
      */
-    public init(_ size: AppScreenshotSize...) {
-        self.sizes = size
+    public init(_ size: AppScreenshotSize..., options: Option...) {
+        self.sizes = size.isEmpty ? [.iPad97Inch()] : size
+        options.forEach {
+            switch $0 {
+            case .tiles(let count): self.tileCount = count
+            case .locale(let locales): self.locales = locales
+            }
+        }
     }
 
     /**
@@ -106,16 +112,6 @@ extension AppScreenshotConfiguration {
     public enum Option {
         case locale([Locale])
         case tiles(Int)
-    }
-
-    public init(_ size: AppScreenshotSize..., options: Option...) {
-        self.sizes = size
-        options.forEach {
-            switch $0 {
-            case .tiles(let count): self.tileCount = count
-            case .locale(let locales): self.locales = locales
-            }
-        }
     }
 }
 
