@@ -27,17 +27,46 @@ extension AppScreenshot {
             environments = environments.filter(predicate)
         }
 
-        return ScaleView {
-            VStack {
-                ForEach(environments, id: \.self) { environment in
-                    screenshotView(environment: environment)
-                        .overlay {
-                            if configuration.tileCount > 1 {
-                                VerticalLinesView(divisionCount: configuration.tileCount)
+        let maxPreviewWidth = 2000.0
+        let maxPreviewHeight = 2000.0
+        let canvasSpace: CGFloat = 50.0
+
+        let actualWidth = environments.map(\.canvasSize.width).max() ?? 0
+        let actualHeight = environments.map(\.canvasSize.height).reduce(0, +) + (canvasSpace * CGFloat(environments.count - 1))
+
+        let preferredPreviewScale = min(maxPreviewWidth / actualWidth, maxPreviewHeight / actualHeight, 1)
+
+        let preferredPreviewWidth = actualWidth * preferredPreviewScale
+        let preferredPreviewHeight = actualHeight * preferredPreviewScale
+
+        return PreviewLayout(preferredSize: CGSize(width: preferredPreviewWidth, height: preferredPreviewHeight)) {
+            ScaleView {
+                VStack(spacing: canvasSpace) {
+                    ForEach(environments, id: \.self) { environment in
+                        screenshotView(environment: environment)
+                            .overlay {
+                                if configuration.tileCount > 1 {
+                                    VerticalLinesView(divisionCount: configuration.tileCount)
+                                }
                             }
-                        }
+                    }
                 }
             }
         }
     }
 }
+
+private struct PreviewLayout: Layout {
+
+    let preferredSize: CGSize
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        return preferredSize
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard let subview = subviews.first else { return }
+        subview.place(at: .init(x: bounds.midX, y: bounds.midY), anchor: .center, proposal: proposal)
+    }
+}
+

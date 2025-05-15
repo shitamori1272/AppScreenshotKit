@@ -143,5 +143,4 @@ struct TitleView: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
     READMEDemo.preview()
-        .frame(width: 5280/2, height: 2868/2)
 }
