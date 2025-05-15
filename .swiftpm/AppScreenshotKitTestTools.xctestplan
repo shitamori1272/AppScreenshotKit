@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "6120206E-0B2B-42FE-BB81-6DB1817E4B2E",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "AppScreenshotKitTestToolsTests",
+        "name" : "AppScreenshotKitTestToolsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

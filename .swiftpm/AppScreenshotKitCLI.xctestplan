@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "189148B3-09BF-459E-ADF2-3271CB57014C",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:",
+      "identifier" : "AppScreenshotKitCLI",
+      "name" : "AppScreenshotKitCLI"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "AppScreenshotKitCLITests",
+        "name" : "AppScreenshotKitCLITests"
+      }
+    }
+  ],
+  "version" : 1
+}
