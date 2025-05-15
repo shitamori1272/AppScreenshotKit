@@ -26,7 +26,7 @@ public class AppScreenshotExporter {
         try outputs.forEach { output in
             let environment = output.environment
 
-            switch option {
+            switch option.option {
             case let .file(parent, fileNameRule):
                 let fileName: String
                 if let fileNameRule {
@@ -69,10 +69,25 @@ public class AppScreenshotExporter {
 }
 
 extension AppScreenshotExporter {
-    public enum ExportOption {
-        case file(_ parentDirectoryURL: URL, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil)
+    enum _ExportOption {
+        case file(_ parentDirectoryURL: URL, fileNameRule: ((AppScreenshotEnvironment) -> String)?)
 #if canImport(XCTest)
-        case attachment(xcTestCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil)
+        case attachment(xcTestCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)?)
+#endif
+
+    }
+
+    public struct ExportOption {
+        let option: _ExportOption
+
+        public static func file(outputURL: URL, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil) -> ExportOption {
+            .init(option: .file(outputURL, fileNameRule: fileNameRule))
+        }
+
+#if canImport(XCTest)
+        public static func attachment(testCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil) -> ExportOption {
+            .init(option: .attachment(xcTestCase: testCase, fileNameRule: fileNameRule))
+        }
 #endif
     }
 }
