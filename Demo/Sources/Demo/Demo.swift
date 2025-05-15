@@ -103,15 +103,7 @@ struct READMEDemo: View {
             }
 
             DeviceView {
-                NavigationStack {
-                    List {
-                        ForEach(0..<10) { index in
-                            Text("Item \(index)")
-                        }
-                    }
-                    .navigationTitle("Navigation")
-                    .navigationBarTitleDisplayMode(.inline)
-                }
+                DemoAppView()
             }
             .statusBarShown()
             .frame(width: 1000)

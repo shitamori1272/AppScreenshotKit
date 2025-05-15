@@ -9,4 +9,5 @@ import AppScreenshotKitTestTools
     let exporter = AppScreenshotExporter(option: .file(outputDirectoryURL))
 
     try exporter.export(READMEDemo.self)
+    try exporter.export(LocaleDemo.self)
 }
