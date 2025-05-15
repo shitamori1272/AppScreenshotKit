@@ -32,7 +32,12 @@ public class AppScreenshotExporter {
                 if let fileNameRule {
                     fileName = fileNameRule(environment)
                 } else {
-                    var defaultFileName = "\(environment.locale.identifier)/\(environment.device.model.rawValue)/\(String(describing: Content.self))"
+                    var defaultFileName = [
+                        environment.locale.identifier,
+                        "\(environment.device.model.category.rawValue)_\(environment.device.model.displayInch)_inch",
+                        String(describing: Content.self)
+                    ].joined(separator: "/")
+
                     if environment.tileCount > 1 {
                         defaultFileName += "-\(output.count)"
                     }
