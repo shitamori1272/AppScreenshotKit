@@ -1,6 +1,6 @@
 //
-//  ScreenshotSize+iPad110Inch.swift
-//  FocusForFun
+//  AppScreenshotSize+iPad110Inch.swift
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/04/27.
 //

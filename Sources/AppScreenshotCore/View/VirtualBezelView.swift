@@ -1,6 +1,12 @@
+//  VirtualBezelView.swift
+//  AppScreenshotKit
+//
+//  Created by Shuhei Shitamori on 2025/04/25.
+//
+
 import SwiftUI
 
-// Modified to be device-agnostic
+/// A device-agnostic view that simulates a bezel for screenshot rendering.
 struct VirtualBezelView<Content: View>: View {
     let content: Content
     @Environment(\.deviceModel) var model: DeviceViewModel
@@ -63,11 +69,11 @@ struct VirtualBezelView<Content: View>: View {
     }
     .environment(
         \.deviceModel,
-         AppScreenshotDevice(
+        AppScreenshotDevice(
             orientation: .portrait,
             color: .black,
             model: .iPhone16
-         )
+        )
     )
     .frame(width: 600, height: 600)
 }

@@ -1,6 +1,6 @@
 //
-//  ScreenshotSize+iPad97Inch.swift
-//  FocusForFun
+//  AppScreenshotSize+iPad97Inch.swift
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/04/27.
 //
@@ -11,7 +11,8 @@ import Foundation
 extension AppScreenshotSize {
 
     public static func iPad97Inch(
-        model: IPad97InchModel = .iPad(), size: IPad97InchModel.AppScreenshotSizeOption = .W1620H2160
+        model: IPad97InchModel = .iPad(),
+        size: IPad97InchModel.AppScreenshotSizeOption = .W1620H2160
     ) -> AppScreenshotSize {
         AppScreenshotSize(
             device: AppScreenshotDevice(
@@ -47,7 +48,9 @@ extension AppScreenshotSize {
             }
         }
 
-        public static func iPad(color: IPadColor = .silver, orientation: DeviceOrientation = .portrait) -> IPad97InchModel {
+        public static func iPad(
+            color: IPadColor = .silver, orientation: DeviceOrientation = .portrait
+        ) -> IPad97InchModel {
             Self.init(
                 orientation: orientation,
                 color: color.deviceColor,
@@ -55,7 +58,9 @@ extension AppScreenshotSize {
             )
         }
 
-        public static func iPadMini(color: IPadMiniColor = .starlight, orientation: DeviceOrientation = .portrait) -> IPad97InchModel {
+        public static func iPadMini(
+            color: IPadMiniColor = .starlight, orientation: DeviceOrientation = .portrait
+        ) -> IPad97InchModel {
             Self.init(
                 orientation: orientation,
                 color: color.deviceColor,

@@ -1,6 +1,6 @@
 //
 //  DeviceView.swift
-//  FocusForFun
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/04/25.
 //

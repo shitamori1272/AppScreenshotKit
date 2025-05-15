@@ -1,12 +1,13 @@
 //
 //  ScreenContentView.swift
-//  FocusForFun
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/04/25.
 //
 
 import SwiftUI
 
+/// A view that renders the main screen content for a device, including status bar handling.
 struct ScreenContentView<Content: View>: View {
 
     let content: Content
@@ -59,9 +60,9 @@ struct ScreenContentView<Content: View>: View {
         }
         .frame(width: model.screenSize.width, height: model.screenSize.height)
         #if canImport(UIKit)
-        .background(Color(uiColor: .systemBackground))
+            .background(Color(uiColor: .systemBackground))
         #elseif canImport(AppKit)
-        .background(Color(NSColor.windowBackgroundColor))
+            .background(Color(NSColor.windowBackgroundColor))
         #endif
         .clipShape(
             RoundedRectangle(

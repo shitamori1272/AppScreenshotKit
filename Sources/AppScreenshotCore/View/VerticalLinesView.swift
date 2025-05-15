@@ -1,13 +1,13 @@
 //
 //  VerticalLinesView.swift
-//  FocusForFun
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/04/25.
 //
 
 import SwiftUI
 
-/// View that draws vertical lines to help with screenshot framing
+/// View that draws vertical lines to help with screenshot framing.
 struct VerticalLinesView: View {
     let divisionCount: Int
 
@@ -29,4 +29,3 @@ struct VerticalLinesView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
-

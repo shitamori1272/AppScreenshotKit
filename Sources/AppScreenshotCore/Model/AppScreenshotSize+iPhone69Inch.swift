@@ -1,6 +1,6 @@
 //
-//  ScreenshotSize+iPhone69Inch.swift
-//  FocusForFun
+//  AppScreenshotSize+iPhone69Inch.swift
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/04/27.
 //
@@ -10,6 +10,14 @@ import Foundation
 // IPhone69InchModel
 extension AppScreenshotSize {
 
+    /**
+     * Returns an AppScreenshotSize for a 6.9-inch iPhone model.
+     *
+     * - Parameters:
+     *   - model: The device model configuration (default: iPhone16ProMax).
+     *   - size: The screenshot size option (default: W1320H2868).
+     * - Returns: An AppScreenshotSize configured for the specified model and size.
+     */
     public static func iPhone69Inch(
         model: IPhone69InchModel = .iPhone16ProMax(),
         size: IPhone69InchModel.AppScreenshotSizeOption = .W1320H2868
@@ -24,11 +32,17 @@ extension AppScreenshotSize {
         )
     }
 
+    /**
+     * Represents the configuration for a 6.9-inch iPhone model, including orientation, color, and device model.
+     */
     public struct IPhone69InchModel {
         let orientation: DeviceOrientation
         let color: DeviceColor
         let model: DeviceModel
 
+        /**
+         * Color options for iPhone 16 Pro Max.
+         */
         public enum iPhone16ProMaxColor {
             case blackTitanium
             case whiteTitanium
@@ -36,6 +50,9 @@ extension AppScreenshotSize {
             case desertTitanium
         }
 
+        /**
+         * Color options for iPhone 16 Plus.
+         */
         public enum iPhone16PlusColor {
             case black
             case white
@@ -44,6 +61,9 @@ extension AppScreenshotSize {
             case ultramarine
         }
 
+        /**
+         * Color options for iPhone 15 Pro Max.
+         */
         public enum iPhone15ProMaxColor {
             case blackTitanium
             case whiteTitanium
@@ -51,6 +71,9 @@ extension AppScreenshotSize {
             case blueTitanium
         }
 
+        /**
+         * Color options for iPhone 15 Plus.
+         */
         public enum iPhone15PlusColor {
             case black
             case blue
@@ -59,6 +82,9 @@ extension AppScreenshotSize {
             case pink
         }
 
+        /**
+         * Color options for iPhone 14 Pro Max.
+         */
         public enum iPhone14ProMaxColor {
             case deepPurple
             case gold
@@ -66,6 +92,9 @@ extension AppScreenshotSize {
             case spaceBlack
         }
 
+        /**
+         * Screenshot size options for 6.9-inch iPhone models.
+         */
         public enum AppScreenshotSizeOption: SizeOption {
             case W1290H2796
             case W2796H1290
@@ -82,6 +111,14 @@ extension AppScreenshotSize {
             }
         }
 
+        /**
+         * Returns a configuration for iPhone 16 Pro Max.
+         *
+         * - Parameters:
+         *   - color: The color option (default: blackTitanium).
+         *   - orientation: The device orientation (default: portrait).
+         * - Returns: An IPhone69InchModel for iPhone 16 Pro Max.
+         */
         public static func iPhone16ProMax(
             color: iPhone16ProMaxColor = .blackTitanium, orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
@@ -92,6 +129,14 @@ extension AppScreenshotSize {
             )
         }
 
+        /**
+         * Returns a configuration for iPhone 16 Plus.
+         *
+         * - Parameters:
+         *   - color: The color option (default: black).
+         *   - orientation: The device orientation (default: portrait).
+         * - Returns: An IPhone69InchModel for iPhone 16 Plus.
+         */
         public static func iPhone16Plus(
             color: iPhone16PlusColor = .black, orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
@@ -102,6 +147,14 @@ extension AppScreenshotSize {
             )
         }
 
+        /**
+         * Returns a configuration for iPhone 15 Pro Max.
+         *
+         * - Parameters:
+         *   - color: The color option (default: blackTitanium).
+         *   - orientation: The device orientation (default: portrait).
+         * - Returns: An IPhone69InchModel for iPhone 15 Pro Max.
+         */
         public static func iPhone15ProMax(
             color: iPhone15ProMaxColor = .blackTitanium, orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
@@ -112,6 +165,14 @@ extension AppScreenshotSize {
             )
         }
 
+        /**
+         * Returns a configuration for iPhone 15 Plus.
+         *
+         * - Parameters:
+         *   - color: The color option (default: black).
+         *   - orientation: The device orientation (default: portrait).
+         * - Returns: An IPhone69InchModel for iPhone 15 Plus.
+         */
         public static func iPhone15Plus(
             color: iPhone15PlusColor = .black, orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
@@ -122,6 +183,14 @@ extension AppScreenshotSize {
             )
         }
 
+        /**
+         * Returns a configuration for iPhone 14 Pro Max.
+         *
+         * - Parameters:
+         *   - color: The color option (default: spaceBlack).
+         *   - orientation: The device orientation (default: portrait).
+         * - Returns: An IPhone69InchModel for iPhone 14 Pro Max.
+         */
         public static func iPhone14ProMax(
             color: iPhone14ProMaxColor = .spaceBlack, orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
@@ -236,6 +305,7 @@ extension AppScreenshotSize {
         )
     }
     static var iPhone69InchAll: [AppScreenshotSize] {
-        iPhone16ProMaxAll + iPhone16PlusAll + iPhone15ProMaxAll + iPhone15PlusAll + iPhone14ProMaxAll
+        iPhone16ProMaxAll + iPhone16PlusAll + iPhone15ProMaxAll + iPhone15PlusAll
+            + iPhone14ProMaxAll
     }
 }

@@ -1,6 +1,12 @@
+//  Bezel.swift
+//  AppScreenshotKit
+//
+//  Created by Shuhei Shitamori on 2025/04/25.
+//
+
 import SwiftUI
 
-/// A view that renders app content within a device bezel frame
+/// A view that renders app content within a device bezel frame.
 struct Bezel<Content: View>: View {
     @Environment(\.deviceModel) var model: DeviceViewModel
     let bezelImageData: Data
@@ -34,12 +40,12 @@ struct Bezel<Content: View>: View {
 
 extension Image {
     init(data: Data) {
-#if canImport(UIKit)
-        let uiImage = UIImage(data: data) ?? UIImage()
-        self.init(uiImage: uiImage)
-#elseif canImport(AppKit)
-        let nsImage = NSImage(data: data) ?? NSImage()
-        self.init(nsImage: nsImage)
-#endif
+        #if canImport(UIKit)
+            let uiImage = UIImage(data: data) ?? UIImage()
+            self.init(uiImage: uiImage)
+        #elseif canImport(AppKit)
+            let nsImage = NSImage(data: data) ?? NSImage()
+            self.init(nsImage: nsImage)
+        #endif
     }
 }

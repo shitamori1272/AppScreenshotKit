@@ -1,6 +1,6 @@
 //
 //  DeviceAppearanceViewModel.swift
-//  FocusForFun
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/05/05.
 //
@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// Protocol for providing device appearance information for rendering device frames.
 protocol DeviceAppearanceViewModel {
     var bezelWidth: CGFloat { get }
     var bezelRadius: CGFloat { get }
@@ -19,6 +20,7 @@ protocol DeviceAppearanceViewModel {
     var appldeBezelDefinition: AppleDesignResourceBezelDefinition { get }
 }
 
+/// ViewModel for Dynamic Island feature.
 struct DynamicIsLandViewModel {
     let size: CGSize
     let radius: CGFloat
@@ -37,7 +39,9 @@ extension AppScreenshotDevice: DeviceAppearanceViewModel {
     var deviceViewSize: CGSize {
         let logicalScreenSize = screenSize
         let imageScreenSize = appldeBezelDefinition.screenRect.size
-        let ratio = (logicalScreenSize.width / imageScreenSize.width + logicalScreenSize.height / imageScreenSize.height) / 2
+        let ratio =
+            (logicalScreenSize.width / imageScreenSize.width + logicalScreenSize.height
+                / imageScreenSize.height) / 2
         let deviceWidth = appldeBezelDefinition.imageSize.width * ratio
         let deviceHeight = appldeBezelDefinition.imageSize.height * ratio
         return CGSize(width: deviceWidth, height: deviceHeight)
@@ -76,8 +80,9 @@ extension AppScreenshotDevice: DeviceAppearanceViewModel {
     var bezelWidth: CGFloat {
         switch model {
         case .iPhone15, .iPhone15Plus, .iPhone15Pro, .iPhone15ProMax,
-                .iPhone16, .iPhone16Plus, .iPhone16Pro, .iPhone16ProMax,
-                .iPhone14ProMax, .iPhone14Plus, .iPhone14Pro, .iPhone14: 10
+            .iPhone16, .iPhone16Plus, .iPhone16Pro, .iPhone16ProMax,
+            .iPhone14ProMax, .iPhone14Plus, .iPhone14Pro, .iPhone14:
+            10
         case .iPadAir13M2, .iPadPro13M4: 44
         case .iPadMini, .iPad: 60
         case .iPadAir11M2, .iPadPro11M4: 54
@@ -87,8 +92,8 @@ extension AppScreenshotDevice: DeviceAppearanceViewModel {
     var deviceFrameWidth: CGFloat {
         switch model {
         case .iPhone15, .iPhone15Plus, .iPhone15Pro, .iPhone15ProMax,
-                .iPhone16, .iPhone16Plus, .iPhone16Pro, .iPhone16ProMax,
-                .iPhone14ProMax, .iPhone14Plus, .iPhone14Pro, .iPhone14:
+            .iPhone16, .iPhone16Plus, .iPhone16Pro, .iPhone16ProMax,
+            .iPhone14ProMax, .iPhone14Plus, .iPhone14Pro, .iPhone14:
             return 6
         case .iPadMini, .iPadAir11M2, .iPadAir13M2, .iPadPro11M4, .iPadPro13M4, .iPad:
             return 8
@@ -98,8 +103,8 @@ extension AppScreenshotDevice: DeviceAppearanceViewModel {
     var dynamicIdsand: DynamicIsLandViewModel? {
         switch model {
         case .iPhone15Pro, .iPhone15ProMax, .iPhone15, .iPhone15Plus,
-                .iPhone16, .iPhone16Plus, .iPhone16Pro, .iPhone16ProMax,
-                .iPhone14Pro, .iPhone14ProMax:
+            .iPhone16, .iPhone16Plus, .iPhone16Pro, .iPhone16ProMax,
+            .iPhone14Pro, .iPhone14ProMax:
             DynamicIsLandViewModel(
                 size: CGSize(width: 123, height: 36), radius: 100, topPadding: 14)
         default: nil
@@ -108,7 +113,9 @@ extension AppScreenshotDevice: DeviceAppearanceViewModel {
 
     var bezelRadius: CGFloat {
         switch model {
-        case .iPhone16ProMax, .iPhone16Plus, .iPhone15ProMax, .iPhone15Plus, .iPhone14Plus, .iPhone14ProMax: 55
+        case .iPhone16ProMax, .iPhone16Plus, .iPhone15ProMax, .iPhone15Plus, .iPhone14Plus,
+            .iPhone14ProMax:
+            55
         case .iPhone16Pro: 62
         case .iPhone16, .iPhone15, .iPhone15Pro, .iPhone14Pro, .iPhone14: 47.33
         case .iPadPro11M4, .iPadPro13M4: 30

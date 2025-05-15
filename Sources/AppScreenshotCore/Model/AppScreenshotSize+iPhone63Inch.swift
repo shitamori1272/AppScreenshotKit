@@ -1,6 +1,6 @@
 //
-//  ScreenshotSize+iPhone63Inch.swift
-//  FocusForFun
+//  AppScreenshotSize+iPhone63Inch.swift
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/04/27.
 //

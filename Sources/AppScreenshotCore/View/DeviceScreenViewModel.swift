@@ -1,6 +1,6 @@
 //
 //  DeviceScreenViewModel.swift
-//  FocusForFun
+//  AppScreenshotKit
 //
 //  Created by Shuhei Shitamori on 2025/05/05.
 //
@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// Protocol for providing device screen information for rendering screenshots.
 protocol DeviceScreenViewModel {
     var screenSize: CGSize { get }
     var safeAreaInsets: EdgeInsets { get }
