@@ -17,8 +17,8 @@ struct RegisterBezelsCommand: BuildToolPlugin {
         let outputDirectoryURL = context.pluginWorkDirectoryURL.appending(path: "AppleDesignResource")
 
         return [
-            .prebuildCommand(
-                displayName: "Register bezel images",
+            .buildCommand(
+                displayName: "Register Bezel images",
                 executable: URL(fileURLWithPath: "/bin/cp"),
                 arguments: [
                     "-R",
@@ -26,7 +26,12 @@ struct RegisterBezelsCommand: BuildToolPlugin {
                     outputDirectoryURL.path()
                 ],
                 environment: [:],
-                outputFilesDirectory: outputDirectoryURL
+                inputFiles: [
+                    cacheDirectoryURL
+                ],
+                outputFiles: [
+                    outputDirectoryURL
+                ]
             )
         ]
     }
