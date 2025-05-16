@@ -11,10 +11,12 @@ on:
 
 jobs:
   ios-build:
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
     - uses: actions/checkout@v4
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode_16.3.0.app
     - name: Build
       run: xcodebuild build -scheme AppScreenshotKit-Package -destination generic/platform=iOS
     - name: Run tests
-      run: echo "testing"
+      run: echo "testing" # Replace this command once unit test is ready.
