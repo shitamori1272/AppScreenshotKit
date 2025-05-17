@@ -18,6 +18,8 @@ struct RegisterBezelsCommand: BuildToolPlugin {
         guard FileManager.default.fileExists(atPath: bezelsDirectoryURL.path) else {
             Diagnostics.warning("No bezels found in \(bezelsDirectoryURL.path). Please run the command to download bezels first.\n \"swift run AppScreenshotKitCLI download-bezel-image\"")
 
+            try FileManager.default.createDirectory(at: outputDirectoryURL, withIntermediateDirectories: true)
+
             return [
                 .buildCommand(
                     displayName: "Register Dummy Bezel image file",
