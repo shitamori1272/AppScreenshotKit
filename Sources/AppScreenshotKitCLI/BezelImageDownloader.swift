@@ -61,7 +61,7 @@ struct BezelImageDownloader {
         try fileManager.createDirectory(at: unzipDirectory, withIntermediateDirectories: true)
         defer { try? fileManager.removeItem(at: unzipDirectory) }
 
-        try Shell.command("unzip", "\"\(sketchURL.path(percentEncoded: false))\"", "-d", unzipDirectory.path())
+        try Shell.run(.unzip(sketchURL: sketchURL, unzipDirectory: unzipDirectory))
 
         let pagesDirectory = unzipDirectory.appendingPathComponent("pages")
         let pageURLs = try fileManager.contentsOfDirectory(atPath: pagesDirectory.path())

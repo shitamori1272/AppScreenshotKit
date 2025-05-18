@@ -12,26 +12,16 @@ struct DMGHandler {
     let mountPointURL: URL
 
     init(mountPointURL: URL? = nil) {
-        self.mountPointURL = mountPointURL ?? fileManager.temporaryDirectory.appending(path: "BezelImageTmp")
+        self.mountPointURL =
+            mountPointURL ?? fileManager.temporaryDirectory.appending(path: "BezelImageTmp")
     }
 
     func mount(dmgURL: URL, handler: (([URL]) throws -> Void)) throws {
         // mount the DMG
-        try Shell
-            .command(
-                "hdiutil",
-                "attach",
-                dmgURL.path,
-                "-nobrowse",
-                "-readonly",
-                "-mountpoint",
-                mountPointURL.path,
-                "-quiet",
-                input: "yes"
-            )
+        try Shell.run(.attachDmg(dmgURL: dmgURL, mountPointURL: mountPointURL))
         defer {
             // unmount the DMG
-            _ = try? Shell.command("hdiutil", "detach", mountPointURL.path, "-force")
+            _ = try? Shell.run(.detachDmg(mountPointURL: mountPointURL))
         }
 
         let contentURLs = try fileManager.contentsOfDirectory(atPath: mountPointURL.path)
