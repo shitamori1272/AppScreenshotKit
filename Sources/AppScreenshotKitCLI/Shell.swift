@@ -7,7 +7,12 @@
 
 import Foundation
 
-enum Shell {
+protocol ShellProtocol {
+    @discardableResult
+    func run(_ command: Shell.Command) throws -> String
+}
+
+struct Shell: ShellProtocol {
     enum Command {
         case unzip(sketchURL: URL, unzipDirectory: URL)
         case detachDmg(mountPointURL: URL)
@@ -52,7 +57,7 @@ enum Shell {
     }
 
     @discardableResult
-    static func run(_ command: Command) throws -> String {
+    func run(_ command: Command) throws -> String {
 #if os(macOS)
         let args = command.arguments
         let input = command.input

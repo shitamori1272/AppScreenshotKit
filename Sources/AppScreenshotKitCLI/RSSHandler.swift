@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct RSSHandler {
+protocol RSSHandlerProtocol {
+    var rssURL: URL { get }
+    func fetch() async throws -> RSSContent
+}
+
+struct RSSHandler: RSSHandlerProtocol {
     let rssURL: URL
 
     func fetch() async throws -> RSSContent {

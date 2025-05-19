@@ -13,12 +13,16 @@ struct BezelImageDownloader {
     let fileManager = FileManager.default
     let outputDirectoryURL: URL
     let tempDirectoryURL: URL
-    let rssHandler: RSSHandler
-    let dmgHandler: DMGHandler
+    let rssHandler: RSSHandlerProtocol
+    let dmgHandler: DMGHandlerProtocol
+    let shell: ShellProtocol
 
     init(
         rssURL: URL,
-        outputDirectoryURL: URL?
+        outputDirectoryURL: URL?,
+        rssHandler: ((URL) -> RSSHandlerProtocol) = { RSSHandler(rssURL: $0) },
+        dmgHandler: ((URL) -> DMGHandlerProtocol) = { DMGHandler(mountPointURL: $0) },
+        shell: (() -> ShellProtocol) = { Shell() }
     ) {
         self.outputDirectoryURL = outputDirectoryURL
         ?? fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first?.appending(path: packageDomain)
@@ -26,8 +30,9 @@ struct BezelImageDownloader {
 
         self.tempDirectoryURL = fileManager.temporaryDirectory.appendingPathComponent(packageDomain)
 
-        self.dmgHandler = DMGHandler(mountPointURL: tempDirectoryURL.appendingPathComponent("BezelImageTmp"))
-        self.rssHandler = RSSHandler(rssURL: rssURL)
+        self.rssHandler = rssHandler(rssURL)
+        self.dmgHandler = dmgHandler(tempDirectoryURL.appendingPathComponent("BezelImageTmp"))
+        self.shell = shell()
     }
 
     func execute() async throws {
@@ -61,7 +66,7 @@ struct BezelImageDownloader {
         try fileManager.createDirectory(at: unzipDirectory, withIntermediateDirectories: true)
         defer { try? fileManager.removeItem(at: unzipDirectory) }
 
-        try Shell.run(.unzip(sketchURL: sketchURL, unzipDirectory: unzipDirectory))
+        try shell.run(.unzip(sketchURL: sketchURL, unzipDirectory: unzipDirectory))
 
         let pagesDirectory = unzipDirectory.appendingPathComponent("pages")
         let pageURLs = try fileManager.contentsOfDirectory(atPath: pagesDirectory.path())
