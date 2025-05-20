@@ -10,13 +10,15 @@ on:
     branches: [ "*" ]
 
 jobs:
-  ios-build:
+  build-and-test:
     runs-on: macos-15
     steps:
     - uses: actions/checkout@v4
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode_16.3.0.app
-    - name: Build
+    - name: Build iOS
       run: xcodebuild build -scheme AppScreenshotKit-Package -destination generic/platform=iOS
-    - name: Run tests
-      run: echo "testing" # Replace this command once unit test is ready.
+    - name: Test iOS
+      run: echo "Testing iOS" # Placeholder for iOS tests
+    - name: Test CLI
+      run: swift test --filter AppScreenshotKitCLITests 

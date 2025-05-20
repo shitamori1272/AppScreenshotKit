@@ -10,24 +10,36 @@ import Foundation
 struct BezelImageDownloader {
 
     let packageDomain = "com.shitamori1272.AppScreenshotKit"
-    let fileManager = FileManager.default
+    let fileManager: FileManagerProtocol
     let outputDirectoryURL: URL
     let tempDirectoryURL: URL
-    let rssHandler: RSSHandler
-    let dmgHandler: DMGHandler
+    let rssHandler: RSSHandlerProtocol
+    let dmgHandler: DMGHandlerProtocol
+    let shell: ShellProtocol
+    let urlSession: URLSessionProtocol
 
     init(
         rssURL: URL,
-        outputDirectoryURL: URL?
+        outputDirectoryURL: URL?,
+        fileManager: FileManagerProtocol = FileManager.default,
+        rssHandler: ((URL) -> RSSHandlerProtocol) = { RSSHandler(rssURL: $0) },
+        dmgHandler: ((URL) -> DMGHandlerProtocol) = { DMGHandler(mountPointURL: $0) },
+        shell: (() -> ShellProtocol) = { Shell() },
+        urlSession: URLSessionProtocol = URLSession.shared
     ) {
-        self.outputDirectoryURL = outputDirectoryURL
-        ?? fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first?.appending(path: packageDomain)
-        ?? URL(fileURLWithPath: fileManager.currentDirectoryPath)
+        self.fileManager = fileManager
+        self.outputDirectoryURL =
+            outputDirectoryURL
+            ?? fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first?.appending(
+                path: packageDomain)
+            ?? URL(fileURLWithPath: fileManager.currentDirectoryPath)
 
         self.tempDirectoryURL = fileManager.temporaryDirectory.appendingPathComponent(packageDomain)
 
-        self.dmgHandler = DMGHandler(mountPointURL: tempDirectoryURL.appendingPathComponent("BezelImageTmp"))
-        self.rssHandler = RSSHandler(rssURL: rssURL)
+        self.rssHandler = rssHandler(rssURL)
+        self.dmgHandler = dmgHandler(tempDirectoryURL.appendingPathComponent("BezelImageTmp"))
+        self.shell = shell()
+        self.urlSession = urlSession
     }
 
     func execute() async throws {
@@ -42,7 +54,7 @@ struct BezelImageDownloader {
         let dmgLinkURL = rssContent.dmgLinkURL
 
         print("Downloading \(dmgLinkURL)...")
-        let downloadedDMGURL = try downloadDMG(url: dmgLinkURL)
+        let downloadedDMGURL = try await downloadDMG(url: dmgLinkURL)
         defer { try? fileManager.removeItem(at: downloadedDMGURL) }
 
         try dmgHandler.mount(dmgURL: downloadedDMGURL) { contentURLs in
@@ -61,7 +73,7 @@ struct BezelImageDownloader {
         try fileManager.createDirectory(at: unzipDirectory, withIntermediateDirectories: true)
         defer { try? fileManager.removeItem(at: unzipDirectory) }
 
-        try Shell.command("unzip", "\"\(sketchURL.path(percentEncoded: false))\"", "-d", unzipDirectory.path())
+        try shell.run(.unzip(sketchURL: sketchURL, unzipDirectory: unzipDirectory))
 
         let pagesDirectory = unzipDirectory.appendingPathComponent("pages")
         let pageURLs = try fileManager.contentsOfDirectory(atPath: pagesDirectory.path())
@@ -90,9 +102,9 @@ struct BezelImageDownloader {
         print("Saved PNGs to \(destinationBaseURL.path)")
     }
 
-    func downloadDMG(url: URL) throws -> URL {
+    func downloadDMG(url: URL) async throws -> URL {
         let dmgPath = tempDirectoryURL.appendingPathComponent(url.lastPathComponent)
-        let data = try Data(contentsOf: url)
+        let (data, _) = try await urlSession.data(from: url)
         try data.write(to: dmgPath)
         return dmgPath
     }
