@@ -3,7 +3,7 @@ import Foundation
 import SwiftUI
 
 #if canImport(XCTest)
-import XCTest
+    import XCTest
 #endif
 
 /// Exports screenshots using AppScreenshotKit and saves them to disk or attaches them to XCTest.
@@ -66,27 +66,27 @@ public class AppScreenshotExporter {
                     withIntermediateDirectories: true
                 )
                 try output.pngData.write(to: fileURL)
-#if canImport(XCTest)
-            case .attachment(let testCase, let fileNameRule):
-                let fileName: String
-                if let fileNameRule {
-                    fileName = fileNameRule(environment)
-                } else {
-                    var defaultFileName =
-                    "\(environment.locale.identifier)-\(environment.device.model.rawValue)-\(String(describing: Content.self))"
-                    if environment.tileCount > 1 {
-                        defaultFileName += "-\(output.count)"
+            #if canImport(XCTest)
+                case .attachment(let testCase, let fileNameRule):
+                    let fileName: String
+                    if let fileNameRule {
+                        fileName = fileNameRule(environment)
+                    } else {
+                        var defaultFileName =
+                            "\(environment.locale.identifier)-\(environment.device.model.rawValue)-\(String(describing: Content.self))"
+                        if environment.tileCount > 1 {
+                            defaultFileName += "-\(output.count)"
+                        }
+                        fileName = defaultFileName
                     }
-                    fileName = defaultFileName
-                }
-                let attachment = XCTAttachment(
-                    uniformTypeIdentifier: "public.png",
-                    name: fileName,
-                    payload: output.pngData
-                )
-                attachment.lifetime = .keepAlways
-                testCase.add(attachment)
-#endif
+                    let attachment = XCTAttachment(
+                        uniformTypeIdentifier: "public.png",
+                        name: fileName,
+                        payload: output.pngData
+                    )
+                    attachment.lifetime = .keepAlways
+                    testCase.add(attachment)
+            #endif
             }
         }
         return outputs
@@ -96,9 +96,9 @@ public class AppScreenshotExporter {
 extension AppScreenshotExporter {
     enum _ExportOption {
         case file(_ parentDirectoryURL: URL, fileNameRule: ((AppScreenshotEnvironment) -> String)?)
-#if canImport(XCTest)
-        case attachment(xcTestCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)?)
-#endif
+        #if canImport(XCTest)
+            case attachment(xcTestCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)?)
+        #endif
 
     }
 
@@ -120,18 +120,18 @@ extension AppScreenshotExporter {
             .init(option: .file(outputURL, fileNameRule: fileNameRule))
         }
 
-#if canImport(XCTest)
-        /// Creates an export option for XCTest attachment.
-        ///
-        /// - Parameter testCase: The XCTestCase to attach screenshots to.
-        /// - Parameter fileNameRule: Optional closure to customize attachment names.
-        /// - Returns: An ExportOption configured for XCTest attachment.
-        public static func attachment(
-            testCase: XCTestCase,
-            fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil
-        ) -> ExportOption {
-            .init(option: .attachment(xcTestCase: testCase, fileNameRule: fileNameRule))
-        }
-#endif
+        #if canImport(XCTest)
+            /// Creates an export option for XCTest attachment.
+            ///
+            /// - Parameter testCase: The XCTestCase to attach screenshots to.
+            /// - Parameter fileNameRule: Optional closure to customize attachment names.
+            /// - Returns: An ExportOption configured for XCTest attachment.
+            public static func attachment(
+                testCase: XCTestCase,
+                fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil
+            ) -> ExportOption {
+                .init(option: .attachment(xcTestCase: testCase, fileNameRule: fileNameRule))
+            }
+        #endif
     }
 }

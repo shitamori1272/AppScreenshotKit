@@ -14,9 +14,7 @@ struct PNGDataConverter {
         _ content: Content,
         rect: CGRect? = nil,
         scale: CGFloat = 1
-    ) throws
-        -> Data
-    {
+    ) throws -> Data {
         #if canImport(UIKit)
             let controller = UIHostingController(rootView: content)
             if #available(iOS 16.4, *) {
