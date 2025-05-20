@@ -36,7 +36,10 @@ let package = Package(
             ]
         ),
         .target(
-            name: "AppScreenshotCore"
+            name: "AppScreenshotCore",
+            plugins: [
+                "SwiftFormatLintCommand"
+            ]
         ),
         .target(
             name: "AppScreenshotKitTestTools",
@@ -44,14 +47,22 @@ let package = Package(
                 "AppScreenshotKit"
             ],
             plugins: [
-                "RegisterBezelsCommand"
+                "RegisterBezelsCommand",
+                "SwiftFormatLintCommand",
             ]
         ),
         .executableTarget(
-            name: "AppScreenshotKitCLI"
+            name: "AppScreenshotKitCLI",
+            plugins: [
+                "SwiftFormatLintCommand"
+            ],
         ),
         .plugin(
             name: "RegisterBezelsCommand",
+            capability: .buildTool()
+        ),
+        .plugin(
+            name: "SwiftFormatLintCommand",
             capability: .buildTool()
         ),
         .testTarget(
