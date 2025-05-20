@@ -14,9 +14,15 @@ protocol RSSHandlerProtocol {
 
 struct RSSHandler: RSSHandlerProtocol {
     let rssURL: URL
+    let urlSession: URLSessionProtocol
+
+    init(rssURL: URL, urlSession: URLSessionProtocol = URLSession.shared) {
+        self.rssURL = rssURL
+        self.urlSession = urlSession
+    }
 
     func fetch() async throws -> RSSContent {
-        let (rssData, _) = try await URLSession.shared.data(from: rssURL)
+        let (rssData, _) = try await urlSession.data(from: rssURL)
         guard let xml = String(data: rssData, encoding: .utf8) else {
             throw CLIError(message: "Failed to parse RSS feed as UTF-8.")
         }
