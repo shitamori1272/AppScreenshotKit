@@ -1,5 +1,6 @@
-import Testing
 import AppScreenshotKitTestTools
+import Testing
+
 @testable import Demo
 
 @MainActor

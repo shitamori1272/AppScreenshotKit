@@ -9,7 +9,7 @@ import AppScreenshotCore
 
 @attached(extension, conformances: AppScreenshot, names: named(configuration), named(body))
 public macro AppScreenshot(_ size: AppScreenshotSize..., options: AppScreenshotConfiguration.Option...) =
-  #externalMacro(
-    module: "AppScreenshotMacroPlugin",
-    type: "AppScreenshotMacro"
-  )
+    #externalMacro(
+        module: "AppScreenshotMacroPlugin",
+        type: "AppScreenshotMacro"
+    )

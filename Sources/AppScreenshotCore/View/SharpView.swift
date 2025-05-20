@@ -31,7 +31,11 @@
             uiView.image = makeUIImage(context: context)
         }
 
-        func sizeThatFits(_ proposal: ProposedViewSize, uiView: UIViewType, context: Context)
+        func sizeThatFits(
+            _ proposal: ProposedViewSize,
+            uiView: UIViewType,
+            context: Context
+        )
             -> CGSize?
         {
             guard let width = proposal.width, let height = proposal.height else {

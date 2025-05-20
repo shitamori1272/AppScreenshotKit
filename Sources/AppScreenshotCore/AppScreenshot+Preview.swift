@@ -10,16 +10,16 @@ import SwiftUI
 
 // MARK: - Preview Extension
 extension AppScreenshot {
-    /**
-     * Creates a preview of the screenshot for use in SwiftUI previews.
-     *
-     * This method provides a convenient way to preview how your App Store screenshots
-     * will look during development without generating the actual export files.
-     *
-     * - Returns: A SwiftUI view displaying the screenshot with its configured environment.
-     */
+    /// Creates a preview of the screenshot for use in SwiftUI previews.
+    ///
+    /// This method provides a convenient way to preview how your App Store screenshots
+    /// will look during development without generating the actual export files.
+    ///
+    /// - Returns: A SwiftUI view displaying the screenshot with its configured environment.
     @MainActor
-    public static func preview(environmentPredicate: ((AppScreenshotEnvironment) -> Bool)? = nil)
+    public static func preview(
+        environmentPredicate: ((AppScreenshotEnvironment) -> Bool)? = nil
+    )
         -> some View
     {
         var environments = configuration.environments()
@@ -32,7 +32,8 @@ extension AppScreenshot {
         let canvasSpace: CGFloat = 50.0
 
         let actualWidth = environments.map(\.canvasSize.width).max() ?? 0
-        let actualHeight = environments.map(\.canvasSize.height).reduce(0, +) + (canvasSpace * CGFloat(environments.count - 1))
+        let actualHeight =
+            environments.map(\.canvasSize.height).reduce(0, +) + (canvasSpace * CGFloat(environments.count - 1))
 
         let preferredPreviewScale = min(maxPreviewWidth / actualWidth, maxPreviewHeight / actualHeight, 1)
 
@@ -69,4 +70,3 @@ private struct PreviewLayout: Layout {
         subview.place(at: .init(x: bounds.midX, y: bounds.midY), anchor: .center, proposal: proposal)
     }
 }
-

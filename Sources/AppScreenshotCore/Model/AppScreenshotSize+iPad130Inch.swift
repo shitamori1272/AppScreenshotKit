@@ -11,7 +11,7 @@ extension AppScreenshotSize {
     // iPad 13.0インチ
     public static func iPad130Inch(
         model: IPad130InchModel = .iPadPro13M4(),
-        size: IPad130InchModel.AppScreenshotSizeOption = .W2048H2732
+        size: IPad130InchModel.AppScreenshotSizeOption = .w2048h2732
     ) -> AppScreenshotSize {
         AppScreenshotSize(
             device: AppScreenshotDevice(
@@ -41,25 +41,27 @@ extension AppScreenshotSize {
         }
 
         public enum AppScreenshotSizeOption: SizeOption {
-            case W2048H2732
-            case W2732H2048
+            case w2048h2732
+            case w2732h2048
 
             var size: CGSize {
                 switch self {
-                case .W2048H2732: CGSize(width: 2048, height: 2732)
-                case .W2732H2048: CGSize(width: 2732, height: 2048)
+                case .w2048h2732: CGSize(width: 2048, height: 2732)
+                case .w2732h2048: CGSize(width: 2732, height: 2048)
                 }
             }
         }
 
         public static func iPadPro13M4(
-            color: IPadPro13Color = .spaceGray, orientation: DeviceOrientation = .portrait
+            color: IPadPro13Color = .spaceGray,
+            orientation: DeviceOrientation = .portrait
         ) -> IPad130InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPadPro13M4)
         }
 
         public static func iPadAir13M2(
-            color: IPadAirColor = .stardust, orientation: DeviceOrientation = .portrait
+            color: IPadAirColor = .stardust,
+            orientation: DeviceOrientation = .portrait
         ) -> IPad130InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPadAir13M2)
         }

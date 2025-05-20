@@ -10,7 +10,7 @@ let package = Package(
         .library(
             name: "Demo",
             targets: ["Demo"]
-        ),
+        )
     ],
     dependencies: [
         .package(path: "../../AppScreenshotKit")
@@ -26,7 +26,7 @@ let package = Package(
             name: "DemoTests",
             dependencies: [
                 "Demo",
-                .product(name: "AppScreenshotKitTestTools", package: "AppScreenshotKit")
+                .product(name: "AppScreenshotKitTestTools", package: "AppScreenshotKit"),
             ]
         ),
     ]

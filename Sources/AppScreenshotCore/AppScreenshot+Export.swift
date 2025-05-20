@@ -10,20 +10,18 @@ import Foundation
 /// Extension that provides export functionality for App Store screenshots.
 extension AppScreenshot {
 
-    /**
-     * Exports screenshots based on the configured environments.
-     *
-     * This method generates screenshot images for all the device types, orientations,
-     * and locales specified in the configuration. The screenshots are rendered based
-     * on the content provided in the `body` method.
-     *
-     * - Parameter resourceBaseURL: Optional URL to the directory containing device bezel resources.
-     *   If provided, the screenshots will use Apple's official device frames.
-     *   If nil, virtual device frames will be used.
-     *
-     * - Returns: An array of AppScreenshotOutput objects containing the PNG data and metadata for each screenshot.
-     * - Throws: Errors that might occur during the rendering or image conversion process.
-     */
+    /// Exports screenshots based on the configured environments.
+    ///
+    /// This method generates screenshot images for all the device types, orientations,
+    /// and locales specified in the configuration. The screenshots are rendered based
+    /// on the content provided in the `body` method.
+    ///
+    /// - Parameter resourceBaseURL: Optional URL to the directory containing device bezel resources.
+    ///   If provided, the screenshots will use Apple's official device frames.
+    ///   If nil, virtual device frames will be used.
+    ///
+    /// - Returns: An array of AppScreenshotOutput objects containing the PNG data and metadata for each screenshot.
+    /// - Throws: Errors that might occur during the rendering or image conversion process.
     @MainActor
     package static func export(resourceBaseURL: URL? = nil) throws -> [AppScreenshotOutput] {
         return try configuration.environments().map { environment in

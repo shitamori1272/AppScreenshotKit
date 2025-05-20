@@ -29,15 +29,13 @@ public struct AppScreenshotEnvironment: Equatable, Hashable, Sendable {
 }
 
 extension AppScreenshotEnvironment {
-    /**
-     * Calculates the rectangle for a specific screenshot in a series.
-     *
-     * When generating multiple screenshots in a sequence, this method determines
-     * the appropriate portion of the canvas to capture for each individual screenshot.
-     *
-     * - Parameter screenshotIndex: The index of the screenshot in the series.
-     * - Returns: A CGRect representing the position and size of the screenshot, or nil if the index is out of bounds.
-     */
+    /// Calculates the rectangle for a specific screenshot in a series.
+    ///
+    /// When generating multiple screenshots in a sequence, this method determines
+    /// the appropriate portion of the canvas to capture for each individual screenshot.
+    ///
+    /// - Parameter tileIndex: The index of the screenshot in the series.
+    /// - Returns: A CGRect representing the position and size of the screenshot, or nil if the index is out of bounds.
     public func rect(for tileIndex: Int) -> CGRect {
         guard tileIndex < tileCount else { return .zero }
         guard tileIndex >= 0 else { return .zero }

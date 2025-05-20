@@ -1,6 +1,6 @@
 import SwiftCompilerPlugin
-import SwiftSyntaxMacros
 import SwiftSyntax
+import SwiftSyntaxMacros
 
 struct AppScreenshotMacro: ExtensionMacro {
     static func expansion(
@@ -18,9 +18,10 @@ struct AppScreenshotMacro: ExtensionMacro {
         }
 
         guard let inheritedTypes = structDecl.inheritanceClause?.inheritedTypes,
-              inheritedTypes.contains(where: {
-                  $0.type.trimmedDescription.split(separator: ".").last == "View"
-              }) else {
+            inheritedTypes.contains(where: {
+                $0.type.trimmedDescription.split(separator: ".").last == "View"
+            })
+        else {
             throw MacroExpansionErrorMessage(
                 "AppScreenShot macro can only be applied to structs that conform to View"
             )

@@ -12,7 +12,7 @@ extension AppScreenshotSize {
     // iPhone 6.3インチ
     public static func iPhone63Inch(
         model: IPhone63InchModel = .iPhone16Pro(),
-        size: IPhone63InchModel.AppScreenshotSizeOption = .W1206H2622
+        size: IPhone63InchModel.AppScreenshotSizeOption = .w1206h2622
     ) -> AppScreenshotSize {
         AppScreenshotSize(
             device: AppScreenshotDevice(
@@ -28,14 +28,14 @@ extension AppScreenshotSize {
         let color: DeviceColor
         let model: DeviceModel
 
-        public enum iPhone16ProColor {
+        public enum IPhone16ProColor {
             case blackTitanium
             case whiteTitanium
             case naturalTitanium
             case desertTitanium
         }
 
-        public enum iPhone16Color {
+        public enum IPhone16Color {
             case black
             case white
             case pink
@@ -43,14 +43,14 @@ extension AppScreenshotSize {
             case ultramarine
         }
 
-        public enum iPhone15ProColor {
+        public enum IPhone15ProColor {
             case blackTitanium
             case blueTitanium
             case naturalTitanium
             case whiteTitanium
         }
 
-        public enum iPhone15Color {
+        public enum IPhone15Color {
             case black
             case blue
             case green
@@ -58,7 +58,7 @@ extension AppScreenshotSize {
             case pink
         }
 
-        public enum iPhone14ProColor {
+        public enum IPhone14ProColor {
             case spaceBlack
             case silver
             case gold
@@ -66,54 +66,59 @@ extension AppScreenshotSize {
         }
 
         public enum AppScreenshotSizeOption: SizeOption {
-            case W1179H2556
-            case W2556H1179
-            case W1206H2622
-            case W2622H1206
+            case w1179h2556
+            case w2556h1179
+            case w1206h2622
+            case w2622h1206
 
             var size: CGSize {
                 switch self {
-                case .W1179H2556: CGSize(width: 1179, height: 2556)
-                case .W2556H1179: CGSize(width: 2556, height: 1179)
-                case .W1206H2622: CGSize(width: 1206, height: 2622)
-                case .W2622H1206: CGSize(width: 2622, height: 1206)
+                case .w1179h2556: CGSize(width: 1179, height: 2556)
+                case .w2556h1179: CGSize(width: 2556, height: 1179)
+                case .w1206h2622: CGSize(width: 1206, height: 2622)
+                case .w2622h1206: CGSize(width: 2622, height: 1206)
                 }
             }
         }
 
         public static func iPhone16Pro(
-            color: iPhone16ProColor = .blackTitanium, orientation: DeviceOrientation = .portrait
+            color: IPhone16ProColor = .blackTitanium,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone16Pro)
         }
 
         public static func iPhone16(
-            color: iPhone16Color = .black, orientation: DeviceOrientation = .portrait
+            color: IPhone16Color = .black,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone16)
         }
 
         public static func iPhone15Pro(
-            color: iPhone15ProColor = .blackTitanium, orientation: DeviceOrientation = .portrait
+            color: IPhone15ProColor = .blackTitanium,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone15Pro)
         }
 
         public static func iPhone15(
-            color: iPhone15Color = .black, orientation: DeviceOrientation = .portrait
+            color: IPhone15Color = .black,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone15)
         }
 
         public static func iPhone14Pro(
-            color: iPhone14ProColor = .spaceBlack, orientation: DeviceOrientation = .portrait
+            color: IPhone14ProColor = .spaceBlack,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone14Pro)
         }
     }
 }
 
-extension AppScreenshotSize.IPhone63InchModel.iPhone16ProColor: DeviceColorConvertable {
+extension AppScreenshotSize.IPhone63InchModel.IPhone16ProColor: DeviceColorConvertable {
     var deviceColor: DeviceColor {
         switch self {
         case .blackTitanium: .blackTitanium  // Maps to "Black Titanium" in the PNG filename
@@ -124,7 +129,7 @@ extension AppScreenshotSize.IPhone63InchModel.iPhone16ProColor: DeviceColorConve
     }
 }
 
-extension AppScreenshotSize.IPhone63InchModel.iPhone16Color: DeviceColorConvertable {
+extension AppScreenshotSize.IPhone63InchModel.IPhone16Color: DeviceColorConvertable {
     var deviceColor: DeviceColor {
         switch self {
         case .black: .black
@@ -136,7 +141,7 @@ extension AppScreenshotSize.IPhone63InchModel.iPhone16Color: DeviceColorConverta
     }
 }
 
-extension AppScreenshotSize.IPhone63InchModel.iPhone15ProColor: DeviceColorConvertable {
+extension AppScreenshotSize.IPhone63InchModel.IPhone15ProColor: DeviceColorConvertable {
     var deviceColor: DeviceColor {
         switch self {
         case .blackTitanium: .blackTitanium  // Maps to "Black Titanium" in the PNG filename
@@ -147,7 +152,7 @@ extension AppScreenshotSize.IPhone63InchModel.iPhone15ProColor: DeviceColorConve
     }
 }
 
-extension AppScreenshotSize.IPhone63InchModel.iPhone15Color: DeviceColorConvertable {
+extension AppScreenshotSize.IPhone63InchModel.IPhone15Color: DeviceColorConvertable {
     var deviceColor: DeviceColor {
         switch self {
         case .black: .black
@@ -159,7 +164,7 @@ extension AppScreenshotSize.IPhone63InchModel.iPhone15Color: DeviceColorConverta
     }
 }
 
-extension AppScreenshotSize.IPhone63InchModel.iPhone14ProColor: DeviceColorConvertable {
+extension AppScreenshotSize.IPhone63InchModel.IPhone14ProColor: DeviceColorConvertable {
     var deviceColor: DeviceColor {
         switch self {
         case .spaceBlack: .spaceBlack
@@ -170,11 +175,11 @@ extension AppScreenshotSize.IPhone63InchModel.iPhone14ProColor: DeviceColorConve
     }
 }
 
-extension AppScreenshotSize.IPhone63InchModel.iPhone16ProColor: CaseIterable {}
-extension AppScreenshotSize.IPhone63InchModel.iPhone16Color: CaseIterable {}
-extension AppScreenshotSize.IPhone63InchModel.iPhone15ProColor: CaseIterable {}
-extension AppScreenshotSize.IPhone63InchModel.iPhone15Color: CaseIterable {}
-extension AppScreenshotSize.IPhone63InchModel.iPhone14ProColor: CaseIterable {}
+extension AppScreenshotSize.IPhone63InchModel.IPhone16ProColor: CaseIterable {}
+extension AppScreenshotSize.IPhone63InchModel.IPhone16Color: CaseIterable {}
+extension AppScreenshotSize.IPhone63InchModel.IPhone15ProColor: CaseIterable {}
+extension AppScreenshotSize.IPhone63InchModel.IPhone15Color: CaseIterable {}
+extension AppScreenshotSize.IPhone63InchModel.IPhone14ProColor: CaseIterable {}
 extension AppScreenshotSize.IPhone63InchModel.AppScreenshotSizeOption: CaseIterable {}
 
 extension AppScreenshotSize {
@@ -182,35 +187,35 @@ extension AppScreenshotSize {
     static var iPhone16ProAll: [AppScreenshotSize] {
         allCases(
             of: .iPhone16Pro,
-            color: IPhone63InchModel.iPhone16ProColor.self,
+            color: IPhone63InchModel.IPhone16ProColor.self,
             size: IPhone63InchModel.AppScreenshotSizeOption.self
         )
     }
     static var iPhone16All: [AppScreenshotSize] {
         allCases(
             of: .iPhone16,
-            color: IPhone63InchModel.iPhone16Color.self,
+            color: IPhone63InchModel.IPhone16Color.self,
             size: IPhone63InchModel.AppScreenshotSizeOption.self
         )
     }
     static var iPhone15ProAll: [AppScreenshotSize] {
         allCases(
             of: .iPhone15Pro,
-            color: IPhone63InchModel.iPhone15ProColor.self,
+            color: IPhone63InchModel.IPhone15ProColor.self,
             size: IPhone63InchModel.AppScreenshotSizeOption.self
         )
     }
     static var iPhone15All: [AppScreenshotSize] {
         allCases(
             of: .iPhone15,
-            color: IPhone63InchModel.iPhone15Color.self,
+            color: IPhone63InchModel.IPhone15Color.self,
             size: IPhone63InchModel.AppScreenshotSizeOption.self
         )
     }
     static var iPhone14ProAll: [AppScreenshotSize] {
         allCases(
             of: .iPhone14Pro,
-            color: IPhone63InchModel.iPhone14ProColor.self,
+            color: IPhone63InchModel.IPhone14ProColor.self,
             size: IPhone63InchModel.AppScreenshotSizeOption.self
         )
     }

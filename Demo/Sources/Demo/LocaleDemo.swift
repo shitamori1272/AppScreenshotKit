@@ -8,7 +8,7 @@
 import AppScreenshotKit
 import SwiftUI
 
-@AppScreenshot(.iPhone69Inch(), options: .locale([Locale(identifier: "ja_JP"),Locale(identifier: "en_US")]))
+@AppScreenshot(.iPhone69Inch(), options: .locale([Locale(identifier: "ja_JP"), Locale(identifier: "en_US")]))
 struct LocaleDemo: View {
 
     @Environment(\.appScreenshotEnvironment) var environment
@@ -38,5 +38,3 @@ struct LocaleDemo: View {
 #Preview(traits: .sizeThatFitsLayout) {
     LocaleDemo.preview()
 }
-
-

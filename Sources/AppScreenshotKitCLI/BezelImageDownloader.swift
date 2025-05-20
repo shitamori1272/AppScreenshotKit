@@ -31,7 +31,8 @@ struct BezelImageDownloader {
         self.outputDirectoryURL =
             outputDirectoryURL
             ?? fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first?.appending(
-                path: packageDomain)
+                path: packageDomain
+            )
             ?? URL(fileURLWithPath: fileManager.currentDirectoryPath)
 
         self.tempDirectoryURL = fileManager.temporaryDirectory.appendingPathComponent(packageDomain)
@@ -91,7 +92,10 @@ struct BezelImageDownloader {
             for (layerName, imagePath) in imageNameMap {
                 let destinationURL = destinationBaseURL.appending(component: layerName).appendingPathExtension("png")
                 if !fileManager.fileExists(atPath: destinationURL.deletingLastPathComponent().path) {
-                    try fileManager.createDirectory(at: destinationURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+                    try fileManager.createDirectory(
+                        at: destinationURL.deletingLastPathComponent(),
+                        withIntermediateDirectories: true
+                    )
                 }
                 try fileManager.copyItem(
                     at: unzipDirectory.appending(component: imagePath),

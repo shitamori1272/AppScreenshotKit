@@ -14,4 +14,3 @@ struct CLIError: LocalizedError, CustomStringConvertible {
 
     static let unsupportedPlatform = CLIError(message: "Unsupported platform. Please use macOS.")
 }
-

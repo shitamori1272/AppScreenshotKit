@@ -5,7 +5,6 @@
 
 // @testable import AppScreenshotKit
 
-
 // @Suite
 // struct ScreenShotGeneratorTests {
 

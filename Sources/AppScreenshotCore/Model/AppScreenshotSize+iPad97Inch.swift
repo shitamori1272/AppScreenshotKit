@@ -12,7 +12,7 @@ extension AppScreenshotSize {
 
     public static func iPad97Inch(
         model: IPad97InchModel = .iPad(),
-        size: IPad97InchModel.AppScreenshotSizeOption = .W1620H2160
+        size: IPad97InchModel.AppScreenshotSizeOption = .w1620h2160
     ) -> AppScreenshotSize {
         AppScreenshotSize(
             device: AppScreenshotDevice(
@@ -38,18 +38,19 @@ extension AppScreenshotSize {
         }
 
         public enum AppScreenshotSizeOption: SizeOption {
-            case W1620H2160
-            case W2160H1620
+            case w1620h2160
+            case w2160h1620
             var size: CGSize {
                 switch self {
-                case .W1620H2160: CGSize(width: 1620, height: 2160)
-                case .W2160H1620: CGSize(width: 2160, height: 1620)
+                case .w1620h2160: CGSize(width: 1620, height: 2160)
+                case .w2160h1620: CGSize(width: 2160, height: 1620)
                 }
             }
         }
 
         public static func iPad(
-            color: IPadColor = .silver, orientation: DeviceOrientation = .portrait
+            color: IPadColor = .silver,
+            orientation: DeviceOrientation = .portrait
         ) -> IPad97InchModel {
             Self.init(
                 orientation: orientation,
@@ -59,7 +60,8 @@ extension AppScreenshotSize {
         }
 
         public static func iPadMini(
-            color: IPadMiniColor = .starlight, orientation: DeviceOrientation = .portrait
+            color: IPadMiniColor = .starlight,
+            orientation: DeviceOrientation = .portrait
         ) -> IPad97InchModel {
             Self.init(
                 orientation: orientation,

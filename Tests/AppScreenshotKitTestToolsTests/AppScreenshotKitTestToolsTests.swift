@@ -5,9 +5,10 @@
 //  Created by Shuhei Shitamori on 2025/05/11.
 //
 
-import XCTest
 import AppScreenshotKit
 import SwiftUI
+import XCTest
+
 @testable import AppScreenshotKitTestTools
 
 class AppScreenshotKitTestToolsTests: XCTestCase {
@@ -35,4 +36,3 @@ struct TestScreenshot: View {
         Text("Hello, World!")
     }
 }
-
