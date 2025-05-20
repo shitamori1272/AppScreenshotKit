@@ -11,7 +11,7 @@ extension AppScreenshotSize {
     // iPad 11.0インチ
     public static func iPad110Inch(
         model: IPad110InchModel = .iPadPro11M4(),
-        size: IPad110InchModel.AppScreenshotSizeOption = .W1668H2388
+        size: IPad110InchModel.AppScreenshotSizeOption = .w1668h2388
     ) -> AppScreenshotSize {
         AppScreenshotSize(
             device: AppScreenshotDevice(
@@ -41,17 +41,17 @@ extension AppScreenshotSize {
         }
 
         public enum AppScreenshotSizeOption: SizeOption {
-            case W1668H2388
-            case W2388H1668
-            case W1640H2360
-            case W2360H1640
+            case w1668h2388
+            case w2388h1668
+            case w1640h2360
+            case w2360h1640
 
             var size: CGSize {
                 switch self {
-                case .W1668H2388: CGSize(width: 1668, height: 2388)
-                case .W2388H1668: CGSize(width: 2388, height: 1668)
-                case .W1640H2360: CGSize(width: 1640, height: 2360)
-                case .W2360H1640: CGSize(width: 2360, height: 1640)
+                case .w1668h2388: CGSize(width: 1668, height: 2388)
+                case .w2388h1668: CGSize(width: 2388, height: 1668)
+                case .w1640h2360: CGSize(width: 1640, height: 2360)
+                case .w2360h1640: CGSize(width: 2360, height: 1640)
                 }
             }
         }

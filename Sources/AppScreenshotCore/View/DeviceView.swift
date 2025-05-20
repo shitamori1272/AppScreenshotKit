@@ -18,11 +18,9 @@ public struct DeviceView<Content: View>: View {
     @Environment(\.renderingStrategy) var renderingStrategy
     let content: Content
 
-    /**
-     * Creates a new device view with the specified content.
-     *
-     * - Parameter content: A closure that returns the content to display within the device frame.
-     */
+    /// Creates a new device view with the specified content.
+    ///
+    /// - Parameter content: A closure that returns the content to display within the device frame.
     public init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
@@ -40,11 +38,9 @@ public struct DeviceView<Content: View>: View {
         }
     }
 
-    /**
-     * Configures the view to display a status bar in the device frame.
-     *
-     * - Returns: A modified view with the status bar displayed.
-     */
+    /// Configures the view to display a status bar in the device frame.
+    ///
+    /// - Returns: A modified view with the status bar displayed.
     public func statusBarShown() -> some View {
         self.environment(\.statusBarShown, true)
     }

@@ -71,7 +71,8 @@ extension AppScreenshotDevice: DeviceAppearanceViewModel {
         case .silver: Color(red: 0xF0 / 255, green: 0xF2 / 255, blue: 0xF2 / 255)
         case .spaceGray: Color(red: 0x26 / 255, green: 0x25 / 255, blue: 0x29 / 255)
         case .starlight: Color(red: 0xFA / 255, green: 0xF6 / 255, blue: 0xF2 / 255)
-        case .stardust: Color(red: 0xFA / 255, green: 0xF6 / 255, blue: 0xF2 / 255)  // Using Starlight color as fallback
+        // Using Starlight color as fallback
+        case .stardust: Color(red: 0xFA / 255, green: 0xF6 / 255, blue: 0xF2 / 255)
         }
     }
 

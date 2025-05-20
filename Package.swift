@@ -55,7 +55,7 @@ let package = Package(
             name: "AppScreenshotKitCLI",
             plugins: [
                 "SwiftFormatLintCommand"
-            ],
+            ]
         ),
         .plugin(
             name: "RegisterBezelsCommand",

@@ -8,16 +8,14 @@
 import Foundation
 
 public enum AppScreenshotKitUtils {
-    /**
-     * Finds and returns the URL of the directory containing the Package.swift file by traversing up the directory tree.
-     *
-     * This method starts from the file where it's called and searches parent directories
-     * until it finds a directory containing a Package.swift file.
-     *
-     * - Parameter currentFilePath: The file path from which to start the search. Defaults to the file where this function is called.
-     * - Returns: The URL of the directory containing the Package.swift file.
-     * - Throws: URLError if no Package.swift file is found in the directory tree.
-     */
+    /// Finds and returns the URL of the directory containing the Package.swift file by traversing up the directory tree.
+    ///
+    /// This method starts from the file where it's called and searches parent directories
+    /// until it finds a directory containing a Package.swift file.
+    ///
+    /// - Parameter currentFilePath: The file path from which to start the search. Defaults to the file where this function is called.
+    /// - Returns: The URL of the directory containing the Package.swift file.
+    /// - Throws: URLError if no Package.swift file is found in the directory tree.
     public static func packageURL(currentFilePath: String = #filePath) throws -> URL {
         let currentFileURL = URL(filePath: currentFilePath)
         var currentDirectoryURL = currentFileURL.deletingLastPathComponent()
@@ -33,16 +31,14 @@ public enum AppScreenshotKitUtils {
         throw URLError(message: "Package.swift not found in the directory tree.")
     }
 
-    /**
-     * Finds and returns the URL of the project root directory by searching for an .xcodeproj file.
-     *
-     * This method starts from the file where it's called and searches parent directories
-     * until it finds a directory containing an .xcodeproj file.
-     *
-     * - Parameter currentFilePath: The file path from which to start the search. Defaults to the file where this function is called.
-     * - Returns: The URL of the directory containing the Xcode project.
-     * - Throws: URLError if no Xcode project is found in the directory tree.
-     */
+    /// Finds and returns the URL of the project root directory by searching for an .xcodeproj file.
+    ///
+    /// This method starts from the file where it's called and searches parent directories
+    /// until it finds a directory containing an .xcodeproj file.
+    ///
+    /// - Parameter currentFilePath: The file path from which to start the search. Defaults to the file where this function is called.
+    /// - Returns: The URL of the directory containing the Xcode project.
+    /// - Throws: URLError if no Xcode project is found in the directory tree.
     public static func projectRootURL(projectName: String = "", currentFilePath: String = #filePath) throws -> URL {
         let currentFileURL = URL(filePath: currentFilePath)
         var currentDirectoryURL = currentFileURL.deletingLastPathComponent()
@@ -66,17 +62,15 @@ public enum AppScreenshotKitUtils {
         throw URLError(message: "Xcode project not found in the directory tree.")
     }
 
-    /**
-     * Finds and returns the URL of the workspace root directory by searching for an .xcworkspace directory.
-     *
-     * This method starts from the file where it's called and searches parent directories
-     * until it finds a directory whose name matches the workspace name with ".xcworkspace" extension.
-     *
-     * - Parameter workspaceName: The name of the workspace to search for.
-     * - Parameter currentFilePath: The file path from which to start the search. Defaults to the file where this function is called.
-     * - Returns: The URL of the directory containing the Xcode workspace.
-     * - Throws: URLError if no Xcode workspace is found in the directory tree.
-     */
+    /// Finds and returns the URL of the workspace root directory by searching for an .xcworkspace directory.
+    ///
+    /// This method starts from the file where it's called and searches parent directories
+    /// until it finds a directory whose name matches the workspace name with ".xcworkspace" extension.
+    ///
+    /// - Parameter workspaceName: The name of the workspace to search for.
+    /// - Parameter currentFilePath: The file path from which to start the search. Defaults to the file where this function is called.
+    /// - Returns: The URL of the directory containing the Xcode workspace.
+    /// - Throws: URLError if no Xcode workspace is found in the directory tree.
     public static func workspaceRootURL(workspaceName: String = "", currentFilePath: String = #filePath) throws -> URL {
         let currentFileURL = URL(filePath: currentFilePath)
         var currentDirectoryURL = currentFileURL.deletingLastPathComponent()

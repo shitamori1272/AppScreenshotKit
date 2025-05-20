@@ -10,14 +10,12 @@ import SwiftUI
 
 // MARK: - Preview Extension
 extension AppScreenshot {
-    /**
-     * Creates a preview of the screenshot for use in SwiftUI previews.
-     *
-     * This method provides a convenient way to preview how your App Store screenshots
-     * will look during development without generating the actual export files.
-     *
-     * - Returns: A SwiftUI view displaying the screenshot with its configured environment.
-     */
+    /// Creates a preview of the screenshot for use in SwiftUI previews.
+    ///
+    /// This method provides a convenient way to preview how your App Store screenshots
+    /// will look during development without generating the actual export files.
+    ///
+    /// - Returns: A SwiftUI view displaying the screenshot with its configured environment.
     @MainActor
     public static func preview(
         environmentPredicate: ((AppScreenshotEnvironment) -> Bool)? = nil
