@@ -8,12 +8,13 @@ let package = Package(
     name: "AppScreenshotKit",
     platforms: [
         .iOS(.v16),
-        .macOS(.v14)
+        .macOS(.v14),
     ],
     products: [
         .library(
             name: "AppScreenshotKit",
-            targets: ["AppScreenshotKit"]),
+            targets: ["AppScreenshotKit"]
+        ),
         .library(
             name: "AppScreenshotKitTestTools",
             targets: ["AppScreenshotKitTestTools"]
@@ -21,17 +22,17 @@ let package = Package(
         .executable(
             name: "AppScreenshotKitCLI",
             targets: ["AppScreenshotKitCLI"]
-        )
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "601.0.0-latest"),
+        .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "601.0.0-latest")
     ],
     targets: [
         .target(
             name: "AppScreenshotKit",
             dependencies: [
                 "AppScreenshotCore",
-                "AppScreenshotMacro"
+                "AppScreenshotMacro",
             ]
         ),
         .target(
@@ -40,7 +41,7 @@ let package = Package(
         .target(
             name: "AppScreenshotKitTestTools",
             dependencies: [
-                "AppScreenshotKit",
+                "AppScreenshotKit"
             ],
             plugins: [
                 "RegisterBezelsCommand"
@@ -69,15 +70,15 @@ let package = Package(
             name: "AppScreenshotMacro",
             dependencies: [
                 "AppScreenshotCore",
-                "AppScreenshotMacroPlugin"
+                "AppScreenshotMacroPlugin",
             ]
         ),
         .macro(
             name: "AppScreenshotMacroPlugin",
             dependencies: [
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
-                .product(name: "SwiftSyntaxMacros", package: "swift-syntax")
+                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
             ]
-        )
+        ),
     ]
 )

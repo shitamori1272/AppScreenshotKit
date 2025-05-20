@@ -120,7 +120,8 @@ extension AppScreenshotSize {
          * - Returns: An IPhone69InchModel for iPhone 16 Pro Max.
          */
         public static func iPhone16ProMax(
-            color: iPhone16ProMaxColor = .blackTitanium, orientation: DeviceOrientation = .portrait
+            color: iPhone16ProMaxColor = .blackTitanium,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
             Self.init(
                 orientation: orientation,
@@ -138,7 +139,8 @@ extension AppScreenshotSize {
          * - Returns: An IPhone69InchModel for iPhone 16 Plus.
          */
         public static func iPhone16Plus(
-            color: iPhone16PlusColor = .black, orientation: DeviceOrientation = .portrait
+            color: iPhone16PlusColor = .black,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
             Self.init(
                 orientation: orientation,
@@ -156,7 +158,8 @@ extension AppScreenshotSize {
          * - Returns: An IPhone69InchModel for iPhone 15 Pro Max.
          */
         public static func iPhone15ProMax(
-            color: iPhone15ProMaxColor = .blackTitanium, orientation: DeviceOrientation = .portrait
+            color: iPhone15ProMaxColor = .blackTitanium,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
             Self.init(
                 orientation: orientation,
@@ -174,7 +177,8 @@ extension AppScreenshotSize {
          * - Returns: An IPhone69InchModel for iPhone 15 Plus.
          */
         public static func iPhone15Plus(
-            color: iPhone15PlusColor = .black, orientation: DeviceOrientation = .portrait
+            color: iPhone15PlusColor = .black,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
             Self.init(
                 orientation: orientation,
@@ -192,7 +196,8 @@ extension AppScreenshotSize {
          * - Returns: An IPhone69InchModel for iPhone 14 Pro Max.
          */
         public static func iPhone14ProMax(
-            color: iPhone14ProMaxColor = .spaceBlack, orientation: DeviceOrientation = .portrait
+            color: iPhone14ProMaxColor = .spaceBlack,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone69InchModel {
             Self.init(
                 orientation: orientation,

@@ -132,7 +132,6 @@ struct TitleView: View {
     }
 }
 
-
 #Preview(traits: .sizeThatFitsLayout) {
     READMEDemo.preview()
 }

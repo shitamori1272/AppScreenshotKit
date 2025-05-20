@@ -122,7 +122,9 @@ extension Sequence {
      * - Parameter other: The other sequence to combine with.
      * - Returns: An array of tuples containing paired elements from both sequences.
      */
-    fileprivate func combined<OtherSequence: Sequence>(_ other: OtherSequence) -> [(
+    fileprivate func combined<OtherSequence: Sequence>(
+        _ other: OtherSequence
+    ) -> [(
         Element, OtherSequence.Element
     )] {
         var result: [(Element, OtherSequence.Element)] = []

@@ -23,8 +23,8 @@ public enum AppScreenshotKitUtils {
         var currentDirectoryURL = currentFileURL.deletingLastPathComponent()
         while currentDirectoryURL != currentDirectoryURL.deletingLastPathComponent() {
             if FileManager.default.fileExists(
-                atPath: currentDirectoryURL.appending(path: "Package.swift").path)
-            {
+                atPath: currentDirectoryURL.appending(path: "Package.swift").path
+            ) {
                 return currentDirectoryURL
             }
             currentDirectoryURL = currentDirectoryURL.deletingLastPathComponent()
@@ -48,14 +48,16 @@ public enum AppScreenshotKitUtils {
         var currentDirectoryURL = currentFileURL.deletingLastPathComponent()
         while currentDirectoryURL != currentDirectoryURL.deletingLastPathComponent() {
             let files = try FileManager.default.contentsOfDirectory(
-                at: currentDirectoryURL, includingPropertiesForKeys: nil)
+                at: currentDirectoryURL,
+                includingPropertiesForKeys: nil
+            )
             if files
                 .contains(
                     where: {
-                        $0.pathExtension == "xcodeproj" &&
-                        $0.deletingPathExtension().lastPathComponent == projectName
+                        $0.pathExtension == "xcodeproj" && $0.deletingPathExtension().lastPathComponent == projectName
                     }
-                ) {
+                )
+            {
                 return currentDirectoryURL
             }
             currentDirectoryURL = currentDirectoryURL.deletingLastPathComponent()

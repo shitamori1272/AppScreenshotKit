@@ -49,7 +49,8 @@ extension AppScreenshotSize {
         }
 
         public static func iPhone14(
-            color: iPhone14Color = .blue, orientation: DeviceOrientation = .portrait
+            color: iPhone14Color = .blue,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone61InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone14)
         }

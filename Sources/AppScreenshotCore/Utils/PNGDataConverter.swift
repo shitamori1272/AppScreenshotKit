@@ -10,7 +10,11 @@ import SwiftUI
 @MainActor
 struct PNGDataConverter {
     /// Convert a SwiftUI view to PNG Data
-    func convert<Content: View>(_ content: Content, rect: CGRect? = nil, scale: CGFloat = 1) throws
+    func convert<Content: View>(
+        _ content: Content,
+        rect: CGRect? = nil,
+        scale: CGFloat = 1
+    ) throws
         -> Data
     {
         #if canImport(UIKit)

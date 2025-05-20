@@ -25,14 +25,14 @@ struct Shell: ShellProtocol {
                     "unzip",
                     "\"\(sketchURL.path(percentEncoded: false))\"",
                     "-d",
-                    unzipDirectory.path()
+                    unzipDirectory.path(),
                 ]
             case .detachDmg(let mountPointURL):
                 [
                     "hdiutil",
                     "detach",
                     mountPointURL.path,
-                    "-force"
+                    "-force",
                 ]
             case .attachDmg(let dmgURL, let mountPointURL):
                 [
@@ -43,7 +43,7 @@ struct Shell: ShellProtocol {
                     "-readonly",
                     "-mountpoint",
                     mountPointURL.path,
-                    "-quiet"
+                    "-quiet",
                 ]
             }
         }
@@ -58,46 +58,46 @@ struct Shell: ShellProtocol {
 
     @discardableResult
     func run(_ command: Command) throws -> String {
-#if os(macOS)
-        let args = command.arguments
-        let input = command.input
+        #if os(macOS)
+            let args = command.arguments
+            let input = command.input
 
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = ["bash", "-c", args.joined(separator: " ")]
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+            process.arguments = ["bash", "-c", args.joined(separator: " ")]
 
-        let outputPipe = Pipe()
-        let errorPipe = Pipe()
+            let outputPipe = Pipe()
+            let errorPipe = Pipe()
 
-        process.standardOutput = outputPipe
-        process.standardError = errorPipe
+            process.standardOutput = outputPipe
+            process.standardError = errorPipe
 
-        if let input {
-            let inputPipe = Pipe()
-            process.standardInput = inputPipe
-            inputPipe.fileHandleForWriting.write(input.data(using: .utf8)!)
-            inputPipe.fileHandleForWriting.closeFile()
-        }
+            if let input {
+                let inputPipe = Pipe()
+                process.standardInput = inputPipe
+                inputPipe.fileHandleForWriting.write(input.data(using: .utf8)!)
+                inputPipe.fileHandleForWriting.closeFile()
+            }
 
-        print("Running command: \(args.joined(separator: " "))")
-        try process.run()
-        process.waitUntilExit()
+            print("Running command: \(args.joined(separator: " "))")
+            try process.run()
+            process.waitUntilExit()
 
-        guard process.terminationStatus == 0 else {
-            let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-            let errorString = String(decoding: errorData, as: UTF8.self)
+            guard process.terminationStatus == 0 else {
+                let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+                let errorString = String(decoding: errorData, as: UTF8.self)
+                let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+                let outputString = String(decoding: outputData, as: UTF8.self)
+                throw CLIError(
+                    message:
+                        "Command failed with \(process.terminationStatus):\n error: \(errorString)\n output: \(outputString)"
+                )
+            }
+
             let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-            let outputString = String(decoding: outputData, as: UTF8.self)
-            throw CLIError(
-                message:
-                    "Command failed with \(process.terminationStatus):\n error: \(errorString)\n output: \(outputString)"
-            )
-        }
-
-        let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-        return String(decoding: outputData, as: UTF8.self)
-#else
-        throw CLIError.unsupportedPlatform
-#endif
+            return String(decoding: outputData, as: UTF8.self)
+        #else
+            throw CLIError.unsupportedPlatform
+        #endif
     }
 }

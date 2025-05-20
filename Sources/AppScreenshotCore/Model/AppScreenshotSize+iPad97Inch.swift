@@ -49,7 +49,8 @@ extension AppScreenshotSize {
         }
 
         public static func iPad(
-            color: IPadColor = .silver, orientation: DeviceOrientation = .portrait
+            color: IPadColor = .silver,
+            orientation: DeviceOrientation = .portrait
         ) -> IPad97InchModel {
             Self.init(
                 orientation: orientation,
@@ -59,7 +60,8 @@ extension AppScreenshotSize {
         }
 
         public static func iPadMini(
-            color: IPadMiniColor = .starlight, orientation: DeviceOrientation = .portrait
+            color: IPadMiniColor = .starlight,
+            orientation: DeviceOrientation = .portrait
         ) -> IPad97InchModel {
             Self.init(
                 orientation: orientation,

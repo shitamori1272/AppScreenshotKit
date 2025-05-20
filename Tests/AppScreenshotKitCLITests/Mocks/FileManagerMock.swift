@@ -10,74 +10,77 @@ import Foundation
 @testable import AppScreenshotKitCLI
 
 class FileManagerMock: FileManagerProtocol {
-  var contentsOfDirectoryCallCount = 0
-  var contentsOfDirectoryHandler: ((String) throws -> [String])?
+    var contentsOfDirectoryCallCount = 0
+    var contentsOfDirectoryHandler: ((String) throws -> [String])?
 
-  var fileExistsCallCount = 0
-  var fileExistsHandler: ((String) -> Bool)?
+    var fileExistsCallCount = 0
+    var fileExistsHandler: ((String) -> Bool)?
 
-  var createDirectoryCallCount = 0
-  var createDirectoryHandler: ((URL, Bool) throws -> Void)?
+    var createDirectoryCallCount = 0
+    var createDirectoryHandler: ((URL, Bool) throws -> Void)?
 
-  var removeItemCallCount = 0
-  var removeItemHandler: ((URL) throws -> Void)?
+    var removeItemCallCount = 0
+    var removeItemHandler: ((URL) throws -> Void)?
 
-  var copyItemCallCount = 0
-  var copyItemHandler: ((URL, URL) throws -> Void)?
+    var copyItemCallCount = 0
+    var copyItemHandler: ((URL, URL) throws -> Void)?
 
-  var _temporaryDirectory = URL(fileURLWithPath: "/tmp")
-  var _currentDirectoryPath = "/current"
-  var _urls: [URL] = []
+    var _temporaryDirectory = URL(fileURLWithPath: "/tmp")
+    var _currentDirectoryPath = "/current"
+    var _urls: [URL] = []
 
-  func contentsOfDirectory(atPath path: String) throws -> [String] {
-    contentsOfDirectoryCallCount += 1
-    guard let handler = contentsOfDirectoryHandler else {
-      return []
+    func contentsOfDirectory(atPath path: String) throws -> [String] {
+        contentsOfDirectoryCallCount += 1
+        guard let handler = contentsOfDirectoryHandler else {
+            return []
+        }
+        return try handler(path)
     }
-    return try handler(path)
-  }
 
-  func fileExists(atPath path: String) -> Bool {
-    fileExistsCallCount += 1
-    guard let handler = fileExistsHandler else {
-      return false
+    func fileExists(atPath path: String) -> Bool {
+        fileExistsCallCount += 1
+        guard let handler = fileExistsHandler else {
+            return false
+        }
+        return handler(path)
     }
-    return handler(path)
-  }
 
-  func createDirectory(
-    at url: URL, withIntermediateDirectories: Bool) throws {
-    createDirectoryCallCount += 1
-    if let handler = createDirectoryHandler {
-      try handler(url, withIntermediateDirectories)
+    func createDirectory(
+        at url: URL,
+        withIntermediateDirectories: Bool
+    ) throws {
+        createDirectoryCallCount += 1
+        if let handler = createDirectoryHandler {
+            try handler(url, withIntermediateDirectories)
+        }
     }
-  }
 
-  func removeItem(at url: URL) throws {
-    removeItemCallCount += 1
-    if let handler = removeItemHandler {
-      try handler(url)
+    func removeItem(at url: URL) throws {
+        removeItemCallCount += 1
+        if let handler = removeItemHandler {
+            try handler(url)
+        }
     }
-  }
 
-  func copyItem(at srcURL: URL, to dstURL: URL) throws {
-    copyItemCallCount += 1
-    if let handler = copyItemHandler {
-      try handler(srcURL, dstURL)
+    func copyItem(at srcURL: URL, to dstURL: URL) throws {
+        copyItemCallCount += 1
+        if let handler = copyItemHandler {
+            try handler(srcURL, dstURL)
+        }
     }
-  }
 
-  var temporaryDirectory: URL {
-    return _temporaryDirectory
-  }
+    var temporaryDirectory: URL {
+        return _temporaryDirectory
+    }
 
-  var currentDirectoryPath: String {
-    return _currentDirectoryPath
-  }
+    var currentDirectoryPath: String {
+        return _currentDirectoryPath
+    }
 
-  func urls(
-    for directory: FileManager.SearchPathDirectory, in domainMask: FileManager.SearchPathDomainMask
-  ) -> [URL] {
-    return _urls
-  }
+    func urls(
+        for directory: FileManager.SearchPathDirectory,
+        in domainMask: FileManager.SearchPathDomainMask
+    ) -> [URL] {
+        return _urls
+    }
 }

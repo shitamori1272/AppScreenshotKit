@@ -106,7 +106,10 @@ extension AppScreenshotDevice: DeviceAppearanceViewModel {
             .iPhone16, .iPhone16Plus, .iPhone16Pro, .iPhone16ProMax,
             .iPhone14Pro, .iPhone14ProMax:
             DynamicIsLandViewModel(
-                size: CGSize(width: 123, height: 36), radius: 100, topPadding: 14)
+                size: CGSize(width: 123, height: 36),
+                radius: 100,
+                topPadding: 14
+            )
         default: nil
         }
     }

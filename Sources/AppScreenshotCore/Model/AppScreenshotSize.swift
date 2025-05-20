@@ -42,8 +42,13 @@ extension AppScreenshotSize {
      * - Returns: An array of AppScreenshotSize configurations representing all possible combinations.
      */
     static func allCases<
-        Color: DeviceColorConvertable & CaseIterable, Size: SizeOption & CaseIterable
-    >(of model: DeviceModel, color: Color.Type = Color.self, size: Size.Type = Size.self)
+        Color: DeviceColorConvertable & CaseIterable,
+        Size: SizeOption & CaseIterable
+    >(
+        of model: DeviceModel,
+        color: Color.Type = Color.self,
+        size: Size.Type = Size.self
+    )
         -> [AppScreenshotSize]
     {
         var sizeList = [AppScreenshotSize]()

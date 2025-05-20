@@ -57,13 +57,15 @@ extension AppScreenshotSize {
         }
 
         public static func iPadPro11M4(
-            color: IPadPro11Color = .spaceGray, orientation: DeviceOrientation = .portrait
+            color: IPadPro11Color = .spaceGray,
+            orientation: DeviceOrientation = .portrait
         ) -> IPad110InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPadPro11M4)
         }
 
         public static func iPadAir11M2(
-            color: IPadAirColor = .stardust, orientation: DeviceOrientation = .portrait
+            color: IPadAirColor = .stardust,
+            orientation: DeviceOrientation = .portrait
         ) -> IPad110InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPadAir11M2)
         }

@@ -82,31 +82,36 @@ extension AppScreenshotSize {
         }
 
         public static func iPhone16Pro(
-            color: iPhone16ProColor = .blackTitanium, orientation: DeviceOrientation = .portrait
+            color: iPhone16ProColor = .blackTitanium,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone16Pro)
         }
 
         public static func iPhone16(
-            color: iPhone16Color = .black, orientation: DeviceOrientation = .portrait
+            color: iPhone16Color = .black,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone16)
         }
 
         public static func iPhone15Pro(
-            color: iPhone15ProColor = .blackTitanium, orientation: DeviceOrientation = .portrait
+            color: iPhone15ProColor = .blackTitanium,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone15Pro)
         }
 
         public static func iPhone15(
-            color: iPhone15Color = .black, orientation: DeviceOrientation = .portrait
+            color: iPhone15Color = .black,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone15)
         }
 
         public static func iPhone14Pro(
-            color: iPhone14ProColor = .spaceBlack, orientation: DeviceOrientation = .portrait
+            color: iPhone14ProColor = .spaceBlack,
+            orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone14Pro)
         }
