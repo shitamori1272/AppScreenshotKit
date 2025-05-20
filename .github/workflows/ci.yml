@@ -19,4 +19,4 @@ jobs:
     - name: Build
       run: xcodebuild build -scheme AppScreenshotKit-Package -destination generic/platform=iOS
     - name: Run tests
-      run: echo "testing" # Replace this command once unit test is ready.
+      run: xcodebuild test -scheme AppScreenshotKit-Package -destination 'platform=iOS Simulator,OS=latest'
