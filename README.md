@@ -293,7 +293,7 @@ AppScreenshotKit requires Apple's official device bezel images for the best resu
 
 **Important: This step is required before using device bezels in your screenshots.**
 
-> **Note**: Before downloading and using Apple's official device bezel images, please review and understand Apple's marketing guidelines at https://developer.apple.com/app-store/marketing/guidelines/#section-products to ensure proper usage of Apple's design resources.
+> **Note**: Before downloading and using Apple's official device bezel images, please review and understand [Apple's marketing guidelines](https://developer.apple.com/app-store/marketing/guidelines/#section-products) to ensure proper usage of Apple's design resources.
 
 ```bash
 # Download bezel images
