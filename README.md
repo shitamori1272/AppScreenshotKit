@@ -76,10 +76,7 @@ Here's a step-by-step guide to implement AppScreenshotKit in your own project:
    import SwiftUI
    import AppScreenshotKit
    
-   @AppScreenshot(
-       .iPhone69Inch(color: .blackTitanium),
-       .iPad130Inch(color: .spaceGray, orientation: .landscape)
-   )
+   @AppScreenshot(.iPhone69Inch(model: .iPhone16ProMax(color: .blackTitanium)), .iPad130Inch(model: .iPadPro13M4(color: .spaceGray, orientation: .landscape)))
    struct MyFirstScreenshot: View {
        @Environment(\.appScreenshotEnvironment) var environment
        
@@ -153,9 +150,9 @@ import AppScreenshotKit
 import SwiftUI
 
 @AppScreenshot(
-    .iPhone69Inch(color: .blackTitanium), 
-    .iPad130Inch(color: .spaceGray, orientation: .landscape),
-    options: .locale([.init(identifier: "en_US"), .init(identifier: "ja_JP")])
+    .iPhone69Inch(model: .iPhone16ProMax(color: .blackTitanium)), 
+    .iPad130Inch(model: .iPadPro13M4(color: .spaceGray, orientation: .landscape)),
+    options: .locale([Locale(identifier: "en_US"), Locale(identifier: "ja_JP")])
 )
 struct MyAppScreenshots: View {
     @Environment(\.appScreenshotEnvironment) var environment
@@ -180,8 +177,8 @@ Here's how to showcase your real app views:
 
 ```swift
 @AppScreenshot(
-    .iPhone69Inch(color: .blackTitanium),
-    .iPad130Inch(color: .spaceGray, orientation: .landscape)
+    .iPhone69Inch(model: .iPhone16ProMax(color: .blackTitanium)),
+    .iPad130Inch(model: .iPadPro13M4(color: .spaceGray, orientation: .landscape))
 )
 struct ProductScreenshots: View {
     @Environment(\.appScreenshotEnvironment) var environment
@@ -296,6 +293,8 @@ AppScreenshotKit requires Apple's official device bezel images for the best resu
 
 **Important: This step is required before using device bezels in your screenshots.**
 
+> **Note**: Before downloading and using Apple's official device bezel images, please review and understand [Apple's marketing guidelines](https://developer.apple.com/app-store/marketing/guidelines/#section-products) to ensure proper usage of Apple's design resources.
+
 ```bash
 # Download bezel images
 swift run AppScreenshotKitCLI download-bezel-image
@@ -327,7 +326,7 @@ The `@AppScreenshot` macro supports several configuration options:
 // Multiple locales
 @AppScreenshot(
     .iPhone69Inch(), 
-    options: .locale([.init(identifier: "en_US"), .init(identifier: "ja_JP")])
+    options: .locale([Locale(identifier: "en_US"), Locale(identifier: "ja_JP")])
 )
 
 // Multiple tiles (for app walkthrough screenshots)
@@ -337,139 +336,15 @@ The `@AppScreenshot` macro supports several configuration options:
 )
 
 // Combine multiple options
-@AppScreenshot(
-    .iPhone69Inch(), .iPad130Inch(),
-    options: .locale([.init(identifier: "en_US"), .init(identifier: "ja_JP")]),
-    options: .tiles(3)
-)
+@AppScreenshot(.iPhone69Inch(), .iPad130Inch(), options: .locale([Locale(identifier: "en_US"), Locale(identifier: "ja_JP")]))
+@AppScreenshot(.iPhone69Inch(), .iPad130Inch(), options: .tiles(3))
 ```
-
-### Adaptive Layouts with Device Category
-
-AppScreenshotKit makes it easy to create device-specific layouts using the `environment.device.model.category` property. This allows you to automatically adapt your screenshot templates based on whether they're running on an iPhone or iPad.
-
-Here's an example of creating responsive layouts that optimize for different device categories:
-
-```swift
-@AppScreenshot(
-    .iPhone69Inch(color: .blackTitanium),
-    .iPad130Inch(color: .spaceGray, orientation: .landscape)
-)
-struct AdaptiveScreenshot: View {
-    @Environment(\.appScreenshotEnvironment) var environment
-    
-    var body: some View {
-        ZStack {
-            // Background gradient
-            LinearGradient(
-                colors: [.blue.opacity(0.7), .purple.opacity(0.7)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
-            
-            VStack(spacing: 30) {
-                // Title section
-                Text("My Awesome App")
-                    .font(.system(size: environment.device.model.category == .iPad ? 120 : 80, weight: .bold))
-                    .foregroundColor(.white)
-                    .shadow(radius: 2)
-                
-                if environment.device.model.category == .iPad {
-                    // iPad-specific layout (side-by-side)
-                    HStack(spacing: 40) {
-                        // Left device frame for iPad
-                        DeviceView {
-                            HomeView(isDemo: true)
-                        }
-                        .statusBarShown()
-                        .frame(height: environment.screenshotSize.height * 0.65)
-                        
-                        // Feature highlights for iPad
-                        VStack(alignment: .leading, spacing: 30) {
-                            FeatureRow(icon: "star.fill", title: "Premium Features", description: "Access exclusive content")
-                            FeatureRow(icon: "bolt.fill", title: "Lightning Fast", description: "Optimized performance")
-                            FeatureRow(icon: "lock.fill", title: "Secure", description: "Your data is protected")
-                        }
-                        .padding(.trailing, 40)
-                    }
-                    .padding(.horizontal, 40)
-                } else {
-                    // iPhone-specific layout (stacked)
-                    VStack {
-                        // Device frame for iPhone
-                        DeviceView {
-                            HomeView(isDemo: true)
-                        }
-                        .statusBarShown()
-                        .frame(height: environment.screenshotSize.height * 0.6)
-                        
-                        // Feature highlight for iPhone (smaller, single feature)
-                        HStack {
-                            Image(systemName: "star.fill")
-                                .font(.system(size: 24))
-                                .foregroundColor(.yellow)
-                            
-                            Text("Premium Experience")
-                                .font(.system(size: 24, weight: .bold))
-                                .foregroundColor(.white)
-                        }
-                        .padding()
-                        .background(Color.black.opacity(0.3))
-                        .cornerRadius(12)
-                    }
-                    .padding(.horizontal, 20)
-                }
-            }
-        }
-    }
-}
-
-// Supporting view for feature rows
-struct FeatureRow: View {
-    var icon: String
-    var title: String
-    var description: String
-    
-    var body: some View {
-        HStack(spacing: 15) {
-            Image(systemName: icon)
-                .font(.system(size: 36))
-                .foregroundColor(.yellow)
-                .frame(width: 50)
-            
-            VStack(alignment: .leading) {
-                Text(title)
-                    .font(.system(size: 28, weight: .bold))
-                    .foregroundColor(.white)
-                
-                Text(description)
-                    .font(.system(size: 20))
-                    .foregroundColor(.white.opacity(0.9))
-            }
-        }
-        .padding()
-        .background(Color.black.opacity(0.3))
-        .cornerRadius(12)
-    }
-}
-```
-
-This example demonstrates how to:
-
-- Use `environment.device.model.category` to determine the current device type (`.iPhone` or `.iPad`)
-- Create different layouts optimized for each device category
-- Scale fonts appropriately for different screen sizes
-- Arrange content side-by-side on iPad but stacked on iPhone
-- Include more detailed content on the larger iPad canvas
-
-By leveraging device categories, you can create screenshot templates that look great across all devices while maximizing the available screen space for each form factor.
 
 ## Requirements
 
-- macOS 13.0+ / iOS 16.0+
-- Swift 5.9+
-- Xcode 15.0+
+- macOS 14.0+ / iOS 16.0+
+- Swift 6.0+
+- Xcode 16.0+
 
 ## Example Demos
 
