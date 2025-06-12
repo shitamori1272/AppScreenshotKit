@@ -64,3 +64,4 @@ fastlane/test_output
 AppleDesignResource
 Results
 .vscode
+.claude
