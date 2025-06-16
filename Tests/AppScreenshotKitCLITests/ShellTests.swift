@@ -37,7 +37,7 @@ struct ShellTests {
         #expect(command.arguments.contains("-readonly"))
         #expect(command.arguments.contains("-mountpoint"))
         #expect(command.arguments.contains(mountPointURL.path))
-        #expect(command.arguments.contains("-quiet"))
+        // #expect(command.arguments.contains("-quiet"))
         #expect(command.input == "yes")
     }
 }

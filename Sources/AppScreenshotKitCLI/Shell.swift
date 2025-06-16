@@ -43,7 +43,7 @@ struct Shell: ShellProtocol {
                     "-readonly",
                     "-mountpoint",
                     mountPointURL.path,
-                    "-quiet",
+                    "-debug",
                 ]
             }
         }
@@ -83,19 +83,21 @@ struct Shell: ShellProtocol {
             try process.run()
             process.waitUntilExit()
 
+            let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+            let errorString = String(decoding: errorData, as: UTF8.self)
+            let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
+            let outputString = String(decoding: outputData, as: UTF8.self)
+
             guard process.terminationStatus == 0 else {
-                let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-                let errorString = String(decoding: errorData, as: UTF8.self)
-                let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-                let outputString = String(decoding: outputData, as: UTF8.self)
+                let commandString = args.joined(separator: " ")
+                let terminationReason = process.terminationReason == .exit ? "exit" : "signal"
                 throw CLIError(
                     message:
-                        "Command failed with \(process.terminationStatus):\n error: \(errorString)\n output: \(outputString)"
+                        "Shell command failed: '\(commandString)'\nTermination: \(terminationReason) with code \(process.terminationStatus)\nError: \(errorString.trimmingCharacters(in: .whitespacesAndNewlines))\nOutput: \(outputString.trimmingCharacters(in: .whitespacesAndNewlines))"
                 )
             }
 
-            let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-            return String(decoding: outputData, as: UTF8.self)
+            return outputString
         #else
             throw CLIError.unsupportedPlatform
         #endif

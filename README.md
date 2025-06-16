@@ -50,7 +50,7 @@ AppScreenshotKit is a Swift package that automates creating App Store screenshot
 Add the package as a dependency in your `Package.swift`:
 
 ```swift
-.package(url: "https://github.com/shitamori1272/AppScreenshotKit.git", from: "1.0.0"),
+.package(url: "https://github.com/shitamori1272/AppScreenshotKit.git", from: "0.1.0"),
 ```
 
 ## Getting Started
@@ -63,7 +63,7 @@ Here's a step-by-step guide to implement AppScreenshotKit in your own project:
    ```swift
    // In Package.swift
    dependencies: [
-       .package(url: "https://github.com/shitamori1272/AppScreenshotKit.git", from: "1.0.0")
+       .package(url: "https://github.com/shitamori1272/AppScreenshotKit.git", from: "0.1.0")
    ]
    ```
    
