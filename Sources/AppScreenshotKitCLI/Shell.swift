@@ -43,7 +43,7 @@ struct Shell: ShellProtocol {
                     "-readonly",
                     "-mountpoint",
                     mountPointURL.path,
-                    "-quiet",
+                    "-debug",
                 ]
             }
         }
