@@ -88,9 +88,10 @@ struct Shell: ShellProtocol {
                 let errorString = String(decoding: errorData, as: UTF8.self)
                 let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
                 let outputString = String(decoding: outputData, as: UTF8.self)
+                let commandString = args.joined(separator: " ")
                 throw CLIError(
                     message:
-                        "Command failed with \(process.terminationStatus):\n error: \(errorString)\n output: \(outputString)"
+                        "Shell command failed: '\(commandString)'\nExit code: \(process.terminationStatus)\nError: \(errorString.trimmingCharacters(in: .whitespacesAndNewlines))\nOutput: \(outputString.trimmingCharacters(in: .whitespacesAndNewlines))"
                 )
             }
 
