@@ -159,17 +159,9 @@ struct BezelImageDownloader {
             let resourceValues = try fileURL.resourceValues(forKeys: [.isDirectoryKey])
             let isDirectory = resourceValues.isDirectory ?? false
 
-            let relativePath: String
-            if standardizedFileURL == baseURL {
-                relativePath = ""
-            } else {
-                var basePath = baseURL.path
-                if !basePath.hasSuffix("/") {
-                    basePath.append("/")
-                }
-                let fullPath = standardizedFileURL.path
-                guard fullPath.hasPrefix(basePath) else { continue }
-                relativePath = String(fullPath.dropFirst(basePath.count))
+            let relativePath = standardizedFileURL.path.replacingOccurrences(of: baseURL.path, with: "")
+            if relativePath.isEmpty {
+                continue
             }
 
             if relativePath.isEmpty {
