@@ -25,6 +25,9 @@ class FileManagerMock: FileManagerProtocol {
     var copyItemCallCount = 0
     var copyItemHandler: ((URL, URL) throws -> Void)?
 
+    var enumeratorCallCount = 0
+    var enumeratorHandler: ((URL, [URLResourceKey]?, FileManager.DirectoryEnumerationOptions) -> FileManager.DirectoryEnumerator?)?
+
     var _temporaryDirectory = URL(fileURLWithPath: "/tmp")
     var _currentDirectoryPath = "/current"
     var _urls: [URL] = []
@@ -67,6 +70,18 @@ class FileManagerMock: FileManagerProtocol {
         if let handler = copyItemHandler {
             try handler(srcURL, dstURL)
         }
+    }
+
+    func enumerator(
+        at url: URL,
+        includingPropertiesForKeys keys: [URLResourceKey]?,
+        options mask: FileManager.DirectoryEnumerationOptions
+    ) -> FileManager.DirectoryEnumerator? {
+        enumeratorCallCount += 1
+        if let handler = enumeratorHandler {
+            return handler(url, keys, mask)
+        }
+        return nil
     }
 
     var temporaryDirectory: URL {

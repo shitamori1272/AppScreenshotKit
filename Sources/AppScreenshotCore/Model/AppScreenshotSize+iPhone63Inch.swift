@@ -28,6 +28,20 @@ extension AppScreenshotSize {
         let color: DeviceColor
         let model: DeviceModel
 
+        public enum IPhone17ProColor {
+            case cosmicOrange
+            case deepBlue
+            case silver
+        }
+
+        public enum IPhone17Color {
+            case lavender
+            case sage
+            case mistBlue
+            case white
+            case black
+        }
+
         public enum IPhone16ProColor {
             case blackTitanium
             case whiteTitanium
@@ -81,6 +95,20 @@ extension AppScreenshotSize {
             }
         }
 
+        public static func iPhone17Pro(
+            color: IPhone17ProColor = .cosmicOrange,
+            orientation: DeviceOrientation = .portrait
+        ) -> IPhone63InchModel {
+            Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone17Pro)
+        }
+
+        public static func iPhone17(
+            color: IPhone17Color = .lavender,
+            orientation: DeviceOrientation = .portrait
+        ) -> IPhone63InchModel {
+            Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone17)
+        }
+
         public static func iPhone16Pro(
             color: IPhone16ProColor = .blackTitanium,
             orientation: DeviceOrientation = .portrait
@@ -114,6 +142,28 @@ extension AppScreenshotSize {
             orientation: DeviceOrientation = .portrait
         ) -> IPhone63InchModel {
             Self.init(orientation: orientation, color: color.deviceColor, model: .iPhone14Pro)
+        }
+    }
+}
+
+extension AppScreenshotSize.IPhone63InchModel.IPhone17ProColor: DeviceColorConvertable {
+    var deviceColor: DeviceColor {
+        switch self {
+        case .cosmicOrange: .cosmicOrange
+        case .deepBlue: .deepBlue
+        case .silver: .silver
+        }
+    }
+}
+
+extension AppScreenshotSize.IPhone63InchModel.IPhone17Color: DeviceColorConvertable {
+    var deviceColor: DeviceColor {
+        switch self {
+        case .lavender: .lavender
+        case .sage: .sage
+        case .mistBlue: .mistBlue
+        case .white: .white
+        case .black: .black
         }
     }
 }
@@ -175,6 +225,8 @@ extension AppScreenshotSize.IPhone63InchModel.IPhone14ProColor: DeviceColorConve
     }
 }
 
+extension AppScreenshotSize.IPhone63InchModel.IPhone17ProColor: CaseIterable {}
+extension AppScreenshotSize.IPhone63InchModel.IPhone17Color: CaseIterable {}
 extension AppScreenshotSize.IPhone63InchModel.IPhone16ProColor: CaseIterable {}
 extension AppScreenshotSize.IPhone63InchModel.IPhone16Color: CaseIterable {}
 extension AppScreenshotSize.IPhone63InchModel.IPhone15ProColor: CaseIterable {}
@@ -184,6 +236,20 @@ extension AppScreenshotSize.IPhone63InchModel.AppScreenshotSizeOption: CaseItera
 
 extension AppScreenshotSize {
 
+    static var iPhone17ProAll: [AppScreenshotSize] {
+        allCases(
+            of: .iPhone17Pro,
+            color: IPhone63InchModel.IPhone17ProColor.self,
+            size: IPhone63InchModel.AppScreenshotSizeOption.self
+        )
+    }
+    static var iPhone17All: [AppScreenshotSize] {
+        allCases(
+            of: .iPhone17,
+            color: IPhone63InchModel.IPhone17Color.self,
+            size: IPhone63InchModel.AppScreenshotSizeOption.self
+        )
+    }
     static var iPhone16ProAll: [AppScreenshotSize] {
         allCases(
             of: .iPhone16Pro,
@@ -220,6 +286,7 @@ extension AppScreenshotSize {
         )
     }
     static var iPhone63InchAll: [AppScreenshotSize] {
-        iPhone16ProAll + iPhone16All + iPhone15ProAll + iPhone15All + iPhone14ProAll
+        iPhone17ProAll + iPhone17All + iPhone16ProAll + iPhone16All + iPhone15ProAll + iPhone15All
+            + iPhone14ProAll
     }
 }

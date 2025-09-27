@@ -18,6 +18,11 @@ public enum DeviceColor: String, CaseIterable, Sendable {
     case red = "Red"
     case teal = "Teal"
     case ultramarine = "Ultramarine"
+    case lavender = "Lavender"
+    case sage = "Sage"
+    case mistBlue = "Mist Blue"
+    case cosmicOrange = "Cosmic Orange"
+    case deepBlue = "Deep Blue"
     case blackTitanium = "Black Titanium"
     case whiteTitanium = "White Titanium"
     case naturalTitanium = "Natural Titanium"
@@ -27,6 +32,9 @@ public enum DeviceColor: String, CaseIterable, Sendable {
     case gold = "Gold"
     case deepPurple = "Deep Purple"
     case midnight = "Midnight"
+    case skyBlue = "Sky Blue"
+    case lightGold = "Light Gold"
+    case cloudWhite = "Cloud White"
 
     // iPad colors
     case silver = "Silver"

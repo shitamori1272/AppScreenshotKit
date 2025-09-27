@@ -19,6 +19,42 @@ struct AppleDesignResourceBezelDefinition {
     ///   - orientation: The device orientation (portrait or landscape).
     init(deviceModel: DeviceModel, orientation: DeviceOrientation) {
         switch deviceModel {
+        case .iPhone17ProMax:
+            switch orientation {
+            case .portrait:
+                self.imageSize = CGSize(width: 1470, height: 3000)
+                self.screenRect = CGRect(x: 75, y: 66, width: 1320, height: 2868)
+            case .landscape:
+                self.imageSize = CGSize(width: 3000, height: 1470)
+                self.screenRect = CGRect(x: 66, y: 75, width: 2868, height: 1320)
+            }
+        case .iPhoneAir:
+            switch orientation {
+            case .portrait:
+                self.imageSize = CGSize(width: 1380, height: 2880)
+                self.screenRect = CGRect(x: 60, y: 72, width: 1260, height: 2736)
+            case .landscape:
+                self.imageSize = CGSize(width: 2880, height: 1380)
+                self.screenRect = CGRect(x: 72, y: 60, width: 2736, height: 1260)
+            }
+        case .iPhone17Pro:
+            switch orientation {
+            case .portrait:
+                self.imageSize = CGSize(width: 1350, height: 2760)
+                self.screenRect = CGRect(x: 72, y: 69, width: 1206, height: 2622)
+            case .landscape:
+                self.imageSize = CGSize(width: 2760, height: 1350)
+                self.screenRect = CGRect(x: 69, y: 72, width: 2622, height: 1206)
+            }
+        case .iPhone17:
+            switch orientation {
+            case .portrait:
+                self.imageSize = CGSize(width: 1350, height: 2760)
+                self.screenRect = CGRect(x: 72, y: 69, width: 1206, height: 2622)
+            case .landscape:
+                self.imageSize = CGSize(width: 2760, height: 1350)
+                self.screenRect = CGRect(x: 69, y: 72, width: 2622, height: 1206)
+            }
         case .iPhone16ProMax:
             switch orientation {
             case .portrait:

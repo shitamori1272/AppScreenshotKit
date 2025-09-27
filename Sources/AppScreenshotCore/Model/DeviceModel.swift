@@ -8,6 +8,11 @@
 import Foundation
 
 public enum DeviceModel: String, Sendable {
+    case iPhone17ProMax = "iPhone 17 Pro Max"
+    case iPhone17Pro = "iPhone 17 Pro"
+    case iPhone17 = "iPhone 17"
+    case iPhoneAir = "iPhone Air"
+
     case iPhone16ProMax = "iPhone 16 Pro Max"
     case iPhone16Plus = "iPhone 16 Plus"
     case iPhone15ProMax = "iPhone 15 Pro Max"
@@ -37,9 +42,10 @@ public enum DeviceModel: String, Sendable {
     // https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications
     public var displayInch: String {
         switch self {
-        case .iPhone16ProMax, .iPhone16Plus, .iPhone15ProMax, .iPhone15Plus, .iPhone14ProMax: "6_9"
+        case .iPhoneAir, .iPhone17ProMax, .iPhone16ProMax,
+            .iPhone16Plus, .iPhone15ProMax, .iPhone15Plus, .iPhone14ProMax: "6_9"
         case .iPhone14Plus: "6_5"
-        case .iPhone16Pro, .iPhone16, .iPhone15Pro, .iPhone15, .iPhone14Pro: "6_3"
+        case .iPhone17Pro, .iPhone17, .iPhone16Pro, .iPhone16, .iPhone15Pro, .iPhone15, .iPhone14Pro: "6_3"
         case .iPhone14: "6_1"
         case .iPadAir13M2, .iPadPro13M4: "13"
         case .iPadAir11M2, .iPadPro11M4: "11"

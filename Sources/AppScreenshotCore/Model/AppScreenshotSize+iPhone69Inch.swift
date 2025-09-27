@@ -36,6 +36,21 @@ extension AppScreenshotSize {
         let color: DeviceColor
         let model: DeviceModel
 
+        /// Color options for iPhone 17 Pro Max.
+        public enum IPhone17ProMaxColor {
+            case cosmicOrange
+            case deepBlue
+            case silver
+        }
+
+        /// Color options for iPhone Air.
+        public enum IPhoneAirColor {
+            case skyBlue
+            case lightGold
+            case cloudWhite
+            case spaceBlack
+        }
+
         /// Color options for iPhone 16 Pro Max.
         public enum IPhone16ProMaxColor {
             case blackTitanium
@@ -80,6 +95,8 @@ extension AppScreenshotSize {
 
         /// Screenshot size options for 6.9-inch iPhone models.
         public enum AppScreenshotSizeOption: SizeOption {
+            case w1260h2736
+            case w2736h1260
             case w1290h2796
             case w2796h1290
             case w1320h2868
@@ -87,12 +104,48 @@ extension AppScreenshotSize {
 
             var size: CGSize {
                 switch self {
+                case .w1260h2736: CGSize(width: 1260, height: 2736)
+                case .w2736h1260: CGSize(width: 2736, height: 1260)
                 case .w1290h2796: CGSize(width: 1290, height: 2796)
                 case .w2796h1290: CGSize(width: 2796, height: 1290)
                 case .w1320h2868: CGSize(width: 1320, height: 2868)
                 case .w2868h1320: CGSize(width: 2868, height: 1320)
                 }
             }
+        }
+
+        /// Returns a configuration for iPhone 17 Pro Max.
+        ///
+        /// - Parameters:
+        ///   - color: The color option (default: cosmicOrange).
+        ///   - orientation: The device orientation (default: portrait).
+        /// - Returns: An IPhone69InchModel for iPhone 17 Pro Max.
+        public static func iPhone17ProMax(
+            color: IPhone17ProMaxColor = .cosmicOrange,
+            orientation: DeviceOrientation = .portrait
+        ) -> IPhone69InchModel {
+            Self.init(
+                orientation: orientation,
+                color: color.deviceColor,
+                model: .iPhone17ProMax
+            )
+        }
+
+        /// Returns a configuration for iPhone Air.
+        ///
+        /// - Parameters:
+        ///   - color: The color option (default: skyBlue).
+        ///   - orientation: The device orientation (default: portrait).
+        /// - Returns: An IPhone69InchModel for iPhone Air.
+        public static func iPhoneAir(
+            color: IPhoneAirColor = .skyBlue,
+            orientation: DeviceOrientation = .portrait
+        ) -> IPhone69InchModel {
+            Self.init(
+                orientation: orientation,
+                color: color.deviceColor,
+                model: .iPhoneAir
+            )
         }
 
         /// Returns a configuration for iPhone 16 Pro Max.
@@ -193,6 +246,27 @@ extension AppScreenshotSize.IPhone69InchModel.IPhone16ProMaxColor: DeviceColorCo
     }
 }
 
+extension AppScreenshotSize.IPhone69InchModel.IPhone17ProMaxColor: DeviceColorConvertable {
+    var deviceColor: DeviceColor {
+        switch self {
+        case .cosmicOrange: .cosmicOrange
+        case .deepBlue: .deepBlue
+        case .silver: .silver
+        }
+    }
+}
+
+extension AppScreenshotSize.IPhone69InchModel.IPhoneAirColor: DeviceColorConvertable {
+    var deviceColor: DeviceColor {
+        switch self {
+        case .skyBlue: .skyBlue
+        case .lightGold: .lightGold
+        case .cloudWhite: .cloudWhite
+        case .spaceBlack: .spaceBlack
+        }
+    }
+}
+
 extension AppScreenshotSize.IPhone69InchModel.IPhone15ProMaxColor: DeviceColorConvertable {
     var deviceColor: DeviceColor {
         switch self {
@@ -239,6 +313,8 @@ extension AppScreenshotSize.IPhone69InchModel.IPhone14ProMaxColor: DeviceColorCo
     }
 }
 
+extension AppScreenshotSize.IPhone69InchModel.IPhone17ProMaxColor: CaseIterable {}
+extension AppScreenshotSize.IPhone69InchModel.IPhoneAirColor: CaseIterable {}
 extension AppScreenshotSize.IPhone69InchModel.IPhone16ProMaxColor: CaseIterable {}
 extension AppScreenshotSize.IPhone69InchModel.IPhone16PlusColor: CaseIterable {}
 extension AppScreenshotSize.IPhone69InchModel.IPhone15ProMaxColor: CaseIterable {}
@@ -247,6 +323,22 @@ extension AppScreenshotSize.IPhone69InchModel.IPhone14ProMaxColor: CaseIterable 
 extension AppScreenshotSize.IPhone69InchModel.AppScreenshotSizeOption: CaseIterable {}
 
 extension AppScreenshotSize {
+
+    static var iPhone17ProMaxAll: [AppScreenshotSize] {
+        allCases(
+            of: .iPhone17ProMax,
+            color: IPhone69InchModel.IPhone17ProMaxColor.self,
+            size: IPhone69InchModel.AppScreenshotSizeOption.self
+        )
+    }
+
+    static var iPhoneAirAll: [AppScreenshotSize] {
+        allCases(
+            of: .iPhoneAir,
+            color: IPhone69InchModel.IPhoneAirColor.self,
+            size: IPhone69InchModel.AppScreenshotSizeOption.self
+        )
+    }
 
     static var iPhone16ProMaxAll: [AppScreenshotSize] {
         allCases(
@@ -284,7 +376,7 @@ extension AppScreenshotSize {
         )
     }
     static var iPhone69InchAll: [AppScreenshotSize] {
-        iPhone16ProMaxAll + iPhone16PlusAll + iPhone15ProMaxAll + iPhone15PlusAll
-            + iPhone14ProMaxAll
+        iPhone17ProMaxAll + iPhoneAirAll + iPhone16ProMaxAll + iPhone16PlusAll
+            + iPhone15ProMaxAll + iPhone15PlusAll + iPhone14ProMaxAll
     }
 }

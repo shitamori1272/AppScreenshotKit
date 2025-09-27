@@ -72,7 +72,7 @@ struct VirtualBezelView<Content: View>: View {
         AppScreenshotDevice(
             orientation: .portrait,
             color: .black,
-            model: .iPhone16
+            model: .iPhone17
         )
     )
     .frame(width: 600, height: 600)

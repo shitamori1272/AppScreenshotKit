@@ -34,7 +34,7 @@ AppScreenshotKit is a Swift package that automates creating App Store screenshot
 
 ## Features
 
-- 📱 **Multi-device Support**: Supports all iOS/iPadOS devices including iPhone 14/15/16 series, iPad, and more
+- 📱 **Multi-device Support**: Supports all iOS/iPadOS devices including iPhone 14/15/16/17 series, the new iPhone Air, iPad, and more
 - 🖼️ **App Store Compliant**: Produces screenshots at the proper resolutions for App Store submission
 - 🧩 **Flexible Customization**: Configure devices, orientations, locales, and tile counts with a simple API
 - 🔄 **Batch Processing**: Generate screenshots for multiple devices, locales, and tile layouts in one call

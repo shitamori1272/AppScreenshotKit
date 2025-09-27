@@ -9,11 +9,15 @@ struct AppScreenshotKitCLI {
         switch command.subcommand {
         case .downloadBezelImage:
             let rssURL = URL(string: "https://developer.apple.com/design/downloads/sketch-bezels.rss")!
+            let additionalDMGURLs = [
+                URL(string: "https://devimages-cdn.apple.com/design/resources/download/Bezel-iPhone-17.dmg")!
+            ]
             let outputDirectoryPath = command.outputURL
 
             let bezelImageDownloader = BezelImageDownloader(
                 rssURL: rssURL,
-                outputDirectoryURL: outputDirectoryPath
+                outputDirectoryURL: outputDirectoryPath,
+                additionalDMGURLs: additionalDMGURLs
             )
 
             try await bezelImageDownloader.execute()

@@ -13,7 +13,7 @@ struct DeviceModelEnvironmentKey: EnvironmentKey {
     static let defaultValue: DeviceViewModel = AppScreenshotDevice(
         orientation: .portrait,
         color: .black,
-        model: .iPhone16Pro
+        model: .iPhone17Pro
     )
 }
 
@@ -37,7 +37,7 @@ struct AppScreenshotEnvironmentEnvironmentKey: EnvironmentKey {
         device: AppScreenshotDevice(
             orientation: .portrait,
             color: .black,
-            model: .iPhone16Pro
+            model: .iPhone17Pro
         )
     )
 }

@@ -21,12 +21,12 @@ extension AppScreenshotDevice: DeviceScreenViewModel {
 
     var screenSize: CGSize {
         switch model {
-        case .iPhone16ProMax:
+        case .iPhone17ProMax, .iPhone16ProMax:
             return switch orientation {
             case .portrait: CGSize(width: 440, height: 956)
             case .landscape: CGSize(width: 956, height: 440)
             }
-        case .iPhone14ProMax, .iPhone15Plus, .iPhone15ProMax, .iPhone16Plus:
+        case .iPhoneAir, .iPhone14ProMax, .iPhone15Plus, .iPhone15ProMax, .iPhone16Plus:
             return switch orientation {
             case .portrait: CGSize(width: 430, height: 932)
             case .landscape: CGSize(width: 932, height: 430)
@@ -36,7 +36,7 @@ extension AppScreenshotDevice: DeviceScreenViewModel {
             case .portrait: CGSize(width: 428, height: 926)
             case .landscape: CGSize(width: 926, height: 428)
             }
-        case .iPhone16Pro:
+        case .iPhone17Pro, .iPhone16Pro:
             return switch orientation {
             case .portrait: CGSize(width: 402, height: 874)
             case .landscape: CGSize(width: 874, height: 402)
@@ -46,7 +46,7 @@ extension AppScreenshotDevice: DeviceScreenViewModel {
             case .portrait: CGSize(width: 393, height: 852)
             case .landscape: CGSize(width: 852, height: 393)
             }
-        case .iPhone16, .iPhone15, .iPhone14:
+        case .iPhone17, .iPhone16, .iPhone15, .iPhone14:
             return switch orientation {
             case .portrait: CGSize(width: 390, height: 844)
             case .landscape: CGSize(width: 844, height: 390)
@@ -85,12 +85,12 @@ extension AppScreenshotDevice: DeviceScreenViewModel {
     }
     var safeAreaInsets: EdgeInsets {
         switch model {
-        case .iPhone16ProMax, .iPhone16Pro:
+        case .iPhone17ProMax, .iPhone16ProMax, .iPhone17Pro, .iPhone16Pro:
             return switch orientation {
             case .portrait: EdgeInsets(top: 62, leading: 0, bottom: 34, trailing: 0)
             case .landscape: EdgeInsets(top: 0, leading: 62, bottom: 21, trailing: 62)
             }
-        case .iPhone14ProMax, .iPhone15Plus, .iPhone15ProMax, .iPhone16Plus:
+        case .iPhoneAir, .iPhone14ProMax, .iPhone15Plus, .iPhone15ProMax, .iPhone16Plus:
             return switch orientation {
             case .portrait: EdgeInsets(top: 59, leading: 0, bottom: 34, trailing: 0)
             case .landscape: EdgeInsets(top: 0, leading: 59, bottom: 21, trailing: 59)
@@ -100,7 +100,7 @@ extension AppScreenshotDevice: DeviceScreenViewModel {
             case .portrait: EdgeInsets(top: 47, leading: 0, bottom: 34, trailing: 0)
             case .landscape: EdgeInsets(top: 0, leading: 47, bottom: 21, trailing: 47)
             }
-        case .iPhone16, .iPhone15, .iPhone14Pro, .iPhone15Pro:
+        case .iPhone17, .iPhone16, .iPhone15, .iPhone14Pro, .iPhone15Pro:
             return switch orientation {
             case .portrait: EdgeInsets(top: 59, leading: 0, bottom: 34, trailing: 0)
             case .landscape: EdgeInsets(top: 0, leading: 59, bottom: 21, trailing: 59)
@@ -126,8 +126,8 @@ extension AppScreenshotDevice: DeviceScreenViewModel {
             case .landscape:
                 // Plus/Max系はlandscapeでregular
                 switch model {
-                case .iPhone16ProMax, .iPhone16Plus, .iPhone15ProMax, .iPhone15Plus,
-                    .iPhone14ProMax, .iPhone14Plus:
+                case .iPhone17ProMax, .iPhoneAir, .iPhone16ProMax, .iPhone16Plus,
+                    .iPhone15ProMax, .iPhone15Plus, .iPhone14ProMax, .iPhone14Plus:
                     return .regular
                 default:
                     return .compact
