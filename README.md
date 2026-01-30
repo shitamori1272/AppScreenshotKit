@@ -5,7 +5,7 @@ Wrap your production views in `DeviceView` so screenshots stay in sync with your
 
 > To use Apple device frames, download the bezel assets once (see [CLI](#cli)).
 
-<details>
+<details open>
 <summary><b>Screenshots</b></summary>
 <div align="center">
   <p>
@@ -22,7 +22,7 @@ Wrap your production views in `DeviceView` so screenshots stay in sync with your
 1. Add the package and products.
 
 ```swift
-.package(url: "https://github.com/shitamori1272/AppScreenshotKit.git", from: "1.0.0"),
+.package(url: "https://github.com/shitamori1272/AppScreenshotKit.git", from: "0.2.0"),
 ```
 
 ```swift
@@ -173,14 +173,12 @@ Before using Apple’s marketing resources, review the [App Store marketing guid
 
 ## Demo
 
-<details>
 <summary><b>Example project</b></summary>
 
 - `Demo/Sources/Demo` contains screenshot definitions.
 - `Demo/Tests/DemoTests` exports screenshots via `AppScreenshotExporter`.
 
 Run `DemoTests` in Xcode to generate sample outputs under `Demo/Screenshots`.
-</details>
 
 ## Requirements
 
