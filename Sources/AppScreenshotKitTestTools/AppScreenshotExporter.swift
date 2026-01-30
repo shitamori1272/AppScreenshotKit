@@ -38,13 +38,16 @@ public class AppScreenshotExporter {
     @MainActor public func export<Content: AppScreenshot>(
         _ content: Content.Type = Content.self
     ) throws -> [AppScreenshotOutput] {
-        let outputs = try Content.export(resourceBaseURL: appleDesignResourceBezelURL)
+        let outputs = try Content.export(
+            resourceBaseURL: appleDesignResourceBezelURL,
+            imageFormat: option.imageFormat
+        )
 
         for output in outputs {
             let environment = output.environment
 
             switch option.option {
-            case .file(let parent, let fileNameRule):
+            case .file(let parent, let fileNameRule, _):
                 let fileName: String
                 if let fileNameRule {
                     fileName = fileNameRule(environment)
@@ -60,14 +63,16 @@ public class AppScreenshotExporter {
                     }
                     fileName = defaultFileName
                 }
-                let fileURL = parent.appendingPathComponent(fileName + ".png")
+                let fileURL = parent.appendingPathComponent(
+                    fileName + "." + output.imageFormat.fileExtension
+                )
                 try FileManager.default.createDirectory(
                     at: fileURL.deletingLastPathComponent(),
                     withIntermediateDirectories: true
                 )
-                try output.pngData.write(to: fileURL)
+                try output.imageData.write(to: fileURL)
             #if canImport(XCTest)
-                case .attachment(let testCase, let fileNameRule):
+                case .attachment(let testCase, let fileNameRule, _):
                     let fileName: String
                     if let fileNameRule {
                         fileName = fileNameRule(environment)
@@ -80,9 +85,9 @@ public class AppScreenshotExporter {
                         fileName = defaultFileName
                     }
                     let attachment = XCTAttachment(
-                        uniformTypeIdentifier: "public.png",
+                        uniformTypeIdentifier: output.imageFormat.uniformTypeIdentifier,
                         name: fileName,
-                        payload: output.pngData
+                        payload: output.imageData
                     )
                     attachment.lifetime = .keepAlways
                     testCase.add(attachment)
@@ -95,9 +100,17 @@ public class AppScreenshotExporter {
 
 extension AppScreenshotExporter {
     enum _ExportOption {
-        case file(_ parentDirectoryURL: URL, fileNameRule: ((AppScreenshotEnvironment) -> String)?)
+        case file(
+            _ parentDirectoryURL: URL,
+            fileNameRule: ((AppScreenshotEnvironment) -> String)?,
+            imageFormat: AppScreenshotImageFormat
+        )
         #if canImport(XCTest)
-            case attachment(xcTestCase: XCTestCase, fileNameRule: ((AppScreenshotEnvironment) -> String)?)
+            case attachment(
+                xcTestCase: XCTestCase,
+                fileNameRule: ((AppScreenshotEnvironment) -> String)?,
+                imageFormat: AppScreenshotImageFormat
+            )
         #endif
 
     }
@@ -112,12 +125,14 @@ extension AppScreenshotExporter {
         ///
         /// - Parameter outputURL: The parent directory URL for output files.
         /// - Parameter fileNameRule: Optional closure to customize file names.
+        /// - Parameter imageFormat: The image format to render.
         /// - Returns: An ExportOption configured for file output.
         public static func file(
             outputURL: URL,
-            fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil
+            fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil,
+            imageFormat: AppScreenshotImageFormat = .png
         ) -> ExportOption {
-            .init(option: .file(outputURL, fileNameRule: fileNameRule))
+            .init(option: .file(outputURL, fileNameRule: fileNameRule, imageFormat: imageFormat))
         }
 
         #if canImport(XCTest)
@@ -125,13 +140,34 @@ extension AppScreenshotExporter {
             ///
             /// - Parameter testCase: The XCTestCase to attach screenshots to.
             /// - Parameter fileNameRule: Optional closure to customize attachment names.
+            /// - Parameter imageFormat: The image format to render.
             /// - Returns: An ExportOption configured for XCTest attachment.
             public static func attachment(
                 testCase: XCTestCase,
-                fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil
+                fileNameRule: ((AppScreenshotEnvironment) -> String)? = nil,
+                imageFormat: AppScreenshotImageFormat = .png
             ) -> ExportOption {
-                .init(option: .attachment(xcTestCase: testCase, fileNameRule: fileNameRule))
+                .init(
+                    option: .attachment(
+                        xcTestCase: testCase,
+                        fileNameRule: fileNameRule,
+                        imageFormat: imageFormat
+                    )
+                )
             }
         #endif
+    }
+}
+
+extension AppScreenshotExporter.ExportOption {
+    var imageFormat: AppScreenshotImageFormat {
+        switch option {
+        case .file(_, _, let imageFormat):
+            return imageFormat
+        #if canImport(XCTest)
+            case .attachment(_, _, let imageFormat):
+                return imageFormat
+        #endif
+        }
     }
 }

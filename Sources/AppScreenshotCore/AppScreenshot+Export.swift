@@ -20,10 +20,14 @@ extension AppScreenshot {
     ///   If provided, the screenshots will use Apple's official device frames.
     ///   If nil, virtual device frames will be used.
     ///
-    /// - Returns: An array of AppScreenshotOutput objects containing the PNG data and metadata for each screenshot.
+    /// - Parameter imageFormat: The image format to render.
+    /// - Returns: An array of AppScreenshotOutput objects containing the image data and metadata for each screenshot.
     /// - Throws: Errors that might occur during the rendering or image conversion process.
     @MainActor
-    package static func export(resourceBaseURL: URL? = nil) throws -> [AppScreenshotOutput] {
+    package static func export(
+        resourceBaseURL: URL? = nil,
+        imageFormat: AppScreenshotImageFormat = .png
+    ) throws -> [AppScreenshotOutput] {
         return try configuration.environments().map { environment in
             let renderingStrategy: RenderingStrategy
             if let resourceBaseURL {
@@ -43,10 +47,15 @@ extension AppScreenshot {
             let outputs: [AppScreenshotOutput] = try Array(0..<environment.tileCount)
                 .compactMap { index in
                     let rect = environment.rect(for: index)
-                    // Convert the view to PNG data
-                    let pngData = try PNGDataConverter().convert(content, rect: rect)
+                    // Convert the view to image data
+                    let imageData = try PNGDataConverter().convert(
+                        content,
+                        rect: rect,
+                        imageFormat: imageFormat
+                    )
                     return AppScreenshotOutput(
-                        pngData: pngData,
+                        imageData: imageData,
+                        imageFormat: imageFormat,
                         environment: environment,
                         count: index
                     )
@@ -62,12 +71,18 @@ extension AppScreenshot {
 /// information about the environment in which it was generated, such as device type,
 /// orientation, and localization settings.
 public struct AppScreenshotOutput: Sendable {
-    /// The raw PNG data of the screenshot
-    public let pngData: Data
+    /// The raw image data of the screenshot.
+    public let imageData: Data
+
+    /// The image format used for rendering.
+    public let imageFormat: AppScreenshotImageFormat
 
     /// The environment configuration used to generate the screenshot
     public let environment: AppScreenshotEnvironment
 
     /// The index of the screenshot in a series (when multiple screenshots are generated)
     public let count: Int
+
+    /// Backward-compatible access to image data.
+    public var pngData: Data { imageData }
 }

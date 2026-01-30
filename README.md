@@ -8,10 +8,10 @@ AppScreenshotKit is a Swift package that automates creating App Store screenshot
 <summary><b>iPhone Screenshots</b></summary>
 <div align="center">
   <p>
-    <img src="Demo/Screenshots/en_JP/iPhone_6_9_inch/READMEDemo-0.png" width="22%" />
-    <img src="Demo/Screenshots/en_JP/iPhone_6_9_inch/READMEDemo-1.png" width="22%" />
-    <img src="Demo/Screenshots/en_JP/iPhone_6_9_inch/READMEDemo-2.png" width="22%" />
-    <img src="Demo/Screenshots/en_JP/iPhone_6_9_inch/READMEDemo-3.png" width="22%" />
+    <img src="Demo/Screenshots/en_JP/iPhone_6_9_inch/READMEDemo-0.jpeg" width="22%" />
+    <img src="Demo/Screenshots/en_JP/iPhone_6_9_inch/READMEDemo-1.jpeg" width="22%" />
+    <img src="Demo/Screenshots/en_JP/iPhone_6_9_inch/READMEDemo-2.jpeg" width="22%" />
+    <img src="Demo/Screenshots/en_JP/iPhone_6_9_inch/READMEDemo-3.jpeg" width="22%" />
   </p>
 </div>
 </details>
@@ -20,12 +20,12 @@ AppScreenshotKit is a Swift package that automates creating App Store screenshot
 <summary><b>iPad Screenshots</b></summary>
 <div align="center">
   <p>
-    <img src="Demo/Screenshots/en_JP/iPad_13_inch/READMEDemo-0.png" width="45%" />
-    <img src="Demo/Screenshots/en_JP/iPad_13_inch/READMEDemo-1.png" width="45%" />
+    <img src="Demo/Screenshots/en_JP/iPad_13_inch/READMEDemo-0.jpeg" width="45%" />
+    <img src="Demo/Screenshots/en_JP/iPad_13_inch/READMEDemo-1.jpeg" width="45%" />
   </p>
   <p>
-    <img src="Demo/Screenshots/en_JP/iPad_13_inch/READMEDemo-2.png" width="45%" />
-    <img src="Demo/Screenshots/en_JP/iPad_13_inch/READMEDemo-3.png" width="45%" />
+    <img src="Demo/Screenshots/en_JP/iPad_13_inch/READMEDemo-2.jpeg" width="45%" />
+    <img src="Demo/Screenshots/en_JP/iPad_13_inch/READMEDemo-3.jpeg" width="45%" />
   </p>
 </div>
 </details>
@@ -370,15 +370,15 @@ The repository includes sample screenshot outputs in the `/Demo/Screenshots` dir
 Demo/Screenshots/
 ├─ en_JP/
 │  ├─ iPad_13_inch/
-│  │  ├─ READMEDemo-0.png
-│  │  ├─ READMEDemo-1.png
-│  │  ├─ READMEDemo-2.png
-│  │  └─ READMEDemo-3.png
+│  │  ├─ READMEDemo-0.jpeg
+│  │  ├─ READMEDemo-1.jpeg
+│  │  ├─ READMEDemo-2.jpeg
+│  │  └─ READMEDemo-3.jpeg
 │  └─ iPhone_6_9_inch/
-│     ├─ READMEDemo-0.png
-│     ├─ READMEDemo-1.png
-│     ├─ READMEDemo-2.png
-│     └─ READMEDemo-3.png
+│     ├─ READMEDemo-0.jpeg
+│     ├─ READMEDemo-1.jpeg
+│     ├─ READMEDemo-2.jpeg
+│     └─ READMEDemo-3.jpeg
 ├─ en_US/
 │  └─ iPhone_6_9_inch/
 │     └─ LocaleDemo.png
@@ -390,7 +390,7 @@ Demo/Screenshots/
 This directory structure demonstrates how the `AppScreenshotExporter` organizes exported screenshots:
 - Top-level directories for each locale (e.g., `en_US`, `ja_JP`)
 - Device-specific subdirectories (e.g., `iPhone_6_9_inch`, `iPad_13_inch`)
-- Files named by screenshot type and, if applicable, tile number (e.g., `READMEDemo-0.png`)
+- Files named by screenshot type and, if applicable, tile number (e.g., `READMEDemo-0.jpeg`)
 
 ### Running the Demo
 
