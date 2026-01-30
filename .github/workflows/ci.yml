@@ -15,9 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Select Xcode
-      run: sudo xcode-select -s /Applications/Xcode_16.3.0.app
+      run: sudo xcode-select -s /Applications/Xcode_16.4.0.app
     - name: Build iOS
-      run: xcodebuild build -scheme AppScreenshotKit-Package -destination generic/platform=iOS
+      run: xcodebuild build -scheme AppScreenshotKit-Package -destination "platform=iOS Simulator,name=iPhone 16 Pro Max,OS=26.2" 
     - name: Test iOS
       run: echo "Testing iOS" # Placeholder for iOS tests
     - name: Test CLI
