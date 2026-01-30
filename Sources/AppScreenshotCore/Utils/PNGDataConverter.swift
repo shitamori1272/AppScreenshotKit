@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 struct PNGDataConverter {
-    /// Convert a SwiftUI view to PNG Data
+    /// Convert a SwiftUI view to image data in the specified format
     func convert<Content: View>(
         _ content: Content,
         rect: CGRect? = nil,
