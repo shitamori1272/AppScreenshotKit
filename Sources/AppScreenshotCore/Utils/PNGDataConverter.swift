@@ -29,9 +29,12 @@ struct PNGDataConverter {
             window.frame = CGRect(origin: .zero, size: targetSize)
             window.rootViewController = controller
             window.makeKeyAndVisible()
-            controller.view.setNeedsLayout()
-            controller.view.layoutIfNeeded()
 
+            view.sizeToFit()
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+
+            view.frame.origin = .init(x: 10_000, y: 10_000)
             let format = UIGraphicsImageRendererFormat()
             format.scale = scale
             format.opaque = false
