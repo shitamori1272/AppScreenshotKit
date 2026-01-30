@@ -35,6 +35,12 @@ struct PNGDataConverter {
             view.setNeedsLayout()
             view.layoutIfNeeded()
 
+            // Move the view far off-screen before rendering.
+            // This is intentional: positioning the view away from (0, 0) avoids
+            // transient layout/animation artifacts and composition glitches that
+            // can occur when rendering SwiftUI content into a UIKit-backed window,
+            // particularly with newer Xcode / iOS toolchains (e.g. Xcode 26).
+            // Do not change this without re-validating screenshot output.
             view.frame.origin = .init(x: 10_000, y: 10_000)
             let format = UIGraphicsImageRendererFormat()
             format.scale = scale
