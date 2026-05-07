@@ -66,6 +66,10 @@ let package = Package(
             capability: .buildTool()
         ),
         .testTarget(
+            name: "AppScreenshotCoreTests",
+            dependencies: ["AppScreenshotCore"]
+        ),
+        .testTarget(
             name: "AppScreenshotKitTests",
             dependencies: ["AppScreenshotKit"]
         ),
