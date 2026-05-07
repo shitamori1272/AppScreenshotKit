@@ -32,7 +32,7 @@ struct RegisterBezelsCommand: BuildToolPlugin {
                     displayName: "Register Dummy Bezel image file",
                     executable: URL(fileURLWithPath: "/usr/bin/touch"),
                     arguments: [
-                        outputDirectoryURL.appending(path: "dummy.txt").path()
+                        outputDirectoryURL.appending(path: "dummy.txt").path(percentEncoded: false)
                     ],
                     environment: [:],
                     inputFiles: [
@@ -45,14 +45,25 @@ struct RegisterBezelsCommand: BuildToolPlugin {
             ]
         }
 
+        // We use `ditto` rather than `cp -R` because `cp -R src dst` nests
+        // `src` inside `dst` whenever `dst` already exists, producing
+        // `dst/<srcname>/...` on a re-run. `ditto src dst` always merges
+        // `src`'s contents into `dst` regardless of whether `dst` exists,
+        // so the bezel layout stays flat across rebuilds. macOS-only, which
+        // is fine here because SwiftPM build plugins always run on the host.
+        //
+        // `path(percentEncoded: false)` is required because `ditto` (and
+        // `touch` above) resolve their arguments as literal filesystem
+        // paths. `URL.path()` percent-encodes spaces and non-ASCII
+        // characters, which would break builds for users whose home
+        // directory path contains such characters.
         return [
             .buildCommand(
                 displayName: "Register Bezel images",
-                executable: URL(fileURLWithPath: "/bin/cp"),
+                executable: URL(fileURLWithPath: "/usr/bin/ditto"),
                 arguments: [
-                    "-R",
-                    bezelsDirectoryURL.path(),
-                    outputDirectoryURL.path(),
+                    bezelsDirectoryURL.path(percentEncoded: false),
+                    outputDirectoryURL.path(percentEncoded: false),
                 ],
                 environment: [:],
                 inputFiles: [
