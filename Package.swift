@@ -81,6 +81,9 @@ let package = Package(
             name: "AppScreenshotKitCLITests",
             dependencies: ["AppScreenshotKitCLI"]
         ),
+        .testTarget(
+            name: "RegisterBezelsCommandTests"
+        ),
         .target(
             name: "AppScreenshotMacro",
             dependencies: [

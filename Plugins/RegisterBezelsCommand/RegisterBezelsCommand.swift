@@ -32,7 +32,7 @@ struct RegisterBezelsCommand: BuildToolPlugin {
                     displayName: "Register Dummy Bezel image file",
                     executable: URL(fileURLWithPath: "/usr/bin/touch"),
                     arguments: [
-                        outputDirectoryURL.appending(path: "dummy.txt").path()
+                        outputDirectoryURL.appending(path: "dummy.txt").path(percentEncoded: false)
                     ],
                     environment: [:],
                     inputFiles: [
@@ -50,9 +50,13 @@ struct RegisterBezelsCommand: BuildToolPlugin {
                 displayName: "Register Bezel images",
                 executable: URL(fileURLWithPath: "/bin/cp"),
                 arguments: [
+                    // Trailing `/.` copies the *contents* of the source directory
+                    // into the destination. `cp -R src dst` would copy the source
+                    // *directory itself* into `dst` whenever `dst` already exists,
+                    // producing `dst/<srcname>/...` on a second invocation.
                     "-R",
-                    bezelsDirectoryURL.path(),
-                    outputDirectoryURL.path(),
+                    bezelsDirectoryURL.path(percentEncoded: false) + "/.",
+                    outputDirectoryURL.path(percentEncoded: false),
                 ],
                 environment: [:],
                 inputFiles: [
