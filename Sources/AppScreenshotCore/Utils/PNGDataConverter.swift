@@ -17,6 +17,15 @@ struct PNGDataConverter {
         imageFormat: AppScreenshotImageFormat = .png
     ) throws -> Data {
         #if canImport(UIKit)
+            if let data = try renderInHostApp(
+                content: content,
+                rect: rect,
+                scale: scale,
+                imageFormat: imageFormat
+            ) {
+                return data
+            }
+
             let controller = UIHostingController(rootView: content)
             if #available(iOS 16.4, *) {
                 controller.safeAreaRegions = []
@@ -87,3 +96,94 @@ struct PNGDataConverter {
         #endif
     }
 }
+
+#if canImport(UIKit)
+    extension PNGDataConverter {
+        fileprivate func renderInHostApp<Content: View>(
+            content: Content,
+            rect: CGRect?,
+            scale: CGFloat,
+            imageFormat: AppScreenshotImageFormat
+        ) throws -> Data? {
+            guard
+                let scene = UIApplication.shared.connectedScenes
+                    .compactMap({ $0 as? UIWindowScene })
+                    .first(where: { !$0.windows.isEmpty }),
+                let keyWindow = scene.windows.first(where: \.isKeyWindow)
+                    ?? scene.windows.first
+            else { return nil }
+
+            let nativeScale = scene.screen.scale
+            let screenPointSize = scene.screen.bounds.size
+
+            let controller = UIHostingController(rootView: content)
+            if #available(iOS 16.4, *) {
+                controller.safeAreaRegions = []
+            }
+            controller.view.backgroundColor = .clear
+
+            let pixelSize = controller.view.intrinsicContentSize
+            let pointSize = CGSize(
+                width: pixelSize.width / nativeScale,
+                height: pixelSize.height / nativeScale
+            )
+
+            // drawHierarchy clips outside the window; let the existing fallback
+            // handle oversized compositions.
+            guard
+                pointSize.width <= screenPointSize.width,
+                pointSize.height <= screenPointSize.height
+            else { return nil }
+
+            let originalRoot = keyWindow.rootViewController
+            keyWindow.rootViewController = controller
+            defer { keyWindow.rootViewController = originalRoot }
+
+            controller.view.bounds = CGRect(origin: .zero, size: pixelSize)
+            controller.view.transform = CGAffineTransform(
+                scaleX: 1 / nativeScale,
+                y: 1 / nativeScale
+            )
+            controller.view.center = CGPoint(
+                x: pointSize.width / 2,
+                y: pointSize.height / 2
+            )
+            controller.view.setNeedsLayout()
+            controller.view.layoutIfNeeded()
+
+            let cropPixelRect = rect ?? CGRect(origin: .zero, size: pixelSize)
+            let cropPointRect = CGRect(
+                x: cropPixelRect.origin.x / nativeScale,
+                y: cropPixelRect.origin.y / nativeScale,
+                width: cropPixelRect.size.width / nativeScale,
+                height: cropPixelRect.size.height / nativeScale
+            )
+
+            let format = UIGraphicsImageRendererFormat()
+            format.scale = nativeScale * scale
+            format.opaque = false
+
+            let renderer = UIGraphicsImageRenderer(size: cropPointRect.size, format: format)
+            let render: (UIGraphicsImageRendererContext) -> Void = { ctx in
+                ctx.cgContext.translateBy(
+                    x: -cropPointRect.origin.x,
+                    y: -cropPointRect.origin.y
+                )
+                controller.view.drawHierarchy(
+                    in: controller.view.frame,
+                    afterScreenUpdates: true
+                )
+            }
+
+            switch imageFormat {
+            case .png:
+                return renderer.pngData(actions: render)
+            case .jpeg:
+                return renderer.jpegData(
+                    withCompressionQuality: imageFormat.clampedCompressionQuality,
+                    actions: render
+                )
+            }
+        }
+    }
+#endif

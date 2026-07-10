@@ -180,6 +180,11 @@ Before using Apple’s marketing resources, review the [App Store marketing guid
 
 Run `DemoTests` in Xcode to generate sample outputs under `Demo/Screenshots`.
 
+SwiftUI Materials (`.thinMaterial`, `.ultraThinMaterial`, etc.) are backed by
+`UIVisualEffectView` and require a hosted `UIApplication` to render in exported
+screenshots. `Demo/DemoApp.xcodeproj` contains a minimal host-app test target
+for that path.
+
 ## Requirements
 
 - iOS 16+ / macOS 14+
