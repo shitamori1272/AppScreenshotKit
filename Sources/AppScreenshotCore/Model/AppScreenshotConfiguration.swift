@@ -19,7 +19,7 @@ public struct AppScreenshotConfiguration: Sendable {
     ///
     /// - Parameter size: One or more AppScreenshotSize values representing the devices and sizes to use.
     public init(_ size: AppScreenshotSize..., options: Option...) {
-        self.sizes = size.isEmpty ? [.iPad97Inch()] : size
+        self.sizes = size.isEmpty ? [.iPhone69Inch()] : size
         for option in options {
             switch option {
             case .tiles(let count): self.tileCount = count
