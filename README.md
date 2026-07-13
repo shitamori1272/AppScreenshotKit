@@ -22,7 +22,7 @@ Wrap your production views in `DeviceView` so screenshots stay in sync with your
 1. Add the package and products.
 
 ```swift
-.package(url: "https://github.com/shitamori1272/AppScreenshotKit.git", from: "0.2.0"),
+.package(url: "https://github.com/shitamori1272/AppScreenshotKit.git", from: "0.3.0"),
 ```
 
 ```swift
